@@ -1,0 +1,14 @@
+{
+  "ARM_ON": true,
+  "CAMERA_ON": false,
+  "ROVER_MOVE": false,
+  "shoulder_arm_angle_theta1": 50,
+  "arm_wrist_angle_theta2": 120,
+  "DRT": 1,
+  "MAHLI": 0,
+  "DRILL": 0,
+  "APXS": 0,
+  "CHIMRA": 0,
+  "arm_power": 110,
+  "arm_time": 2
+}
