@@ -12,6 +12,7 @@ import java.io.IOException;
 import json.Constants;
 import module1.ModuleOneClient;
 import module1.ModuleOneServer;
+import module16.ModuleSixteenServer;
 import module2.ModuleTwoClient;
 import module2.ModuleTwoServer;
 
@@ -31,12 +32,17 @@ public class MasterMain {
 			//Thread server_1 = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverOne);
 			
 			// create a thread for module two
-			ModuleTwoServer serverTwo = new ModuleTwoServer(port_sixteen);
-			Thread server_2 = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverTwo);
+			//ModuleTwoServer serverTwo = new ModuleTwoServer(port_sixteen);
+			//Thread server_2 = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverTwo);
+			
+			ModuleSixteenServer serverSixteen = new ModuleSixteenServer(port_sixteen);
+			Thread server_16 = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverSixteen);
 			
 			// each server begins listening
 			//server_1.start();
-			server_2.start();
+			//server_2.start();
+			
+			server_16.start();
 			
 			// The following commands are examples of sending data: 
 			// from module 1 client to module 2 server

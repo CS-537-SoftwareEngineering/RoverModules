@@ -1,4 +1,4 @@
-package module2;
+package module16;
 
 /*	
  * Created by: 	Jonathan Young
@@ -21,9 +21,9 @@ import com.google.gson.GsonBuilder;
 
 import generic.RoverServerRunnable;
 
-public class ModuleTwoServer extends RoverServerRunnable {
+public class ModuleSixteenServer extends RoverServerRunnable {
 
-	public ModuleTwoServer(int port) throws IOException {
+	public ModuleSixteenServer(int port) throws IOException {
 		super(port);
 	}
 
