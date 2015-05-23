@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 
+import org.json.simple.JSONObject;
+
 public class ccamClient extends RoverClientRunnable{
 
 	public ccamClient(int port, InetAddress host) throws UnknownHostException {
@@ -166,6 +168,17 @@ public class ccamClient extends RoverClientRunnable{
 		            ois.close();
 		            oos.close();
 		            Thread.sleep(2000);
+		            
+		            
+		            
+		            JSONObject obj = new JSONObject();
+		    		
+		    		obj.put("silicon", 100.23);
+		    		obj.put("megnasium",234.56);
+		    		obj.put("iron",333.45);
+		    		obj.put("sodium", 3544.77);
+		    		JSON.MyWriter.MyWriter(obj,11);
+		            
 		            
 		            
 		            oos = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
