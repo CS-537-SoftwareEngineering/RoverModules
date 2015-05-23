@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 import json.Constants;
 import json.GlobalReader;
@@ -86,7 +87,7 @@ public class CHEMIN_Server_final extends RoverServerRunnable {
 					// MyWriter arguments are:
 					// MyWriter writerName = new MyWriter(className, Constants.GroupNumber)
 					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(moduleOneClass, Constants.ONE);
+					MyWriter JSONWriter = new MyWriter(moduleOneClass, Constants.ROOT_PATH+Constants.ONE);
 					System.out.println("");
 					System.out.println("<Server One>");
 					moduleOneClass.printObject();
@@ -95,7 +96,7 @@ public class CHEMIN_Server_final extends RoverServerRunnable {
 				}
 				else if(message.equalsIgnoreCase("MODULE_TWO_GET")) {
 					// The server reads another a JSON Object in memory
-					GlobalReader JSONReader = new GlobalReader(Constants.TWO);
+					GlobalReader JSONReader = new GlobalReader(Constants.ROOT_PATH+Constants.TWO);
 					JSONObject thatOtherObject = JSONReader.getJSONObject();
 					
 					// Integers are passed as longs

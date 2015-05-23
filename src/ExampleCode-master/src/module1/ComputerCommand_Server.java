@@ -56,7 +56,7 @@ public class ComputerCommand_Server extends RoverServerRunnable {
 				/*Requirement jsonReq = gson.fromJson(message1, Requirement.class);
 				System.out.println("CSU SERVER: Json convert :");
 				jsonReq.printObject();*/
-				MyWriter JSONWriterCSU = new MyWriter(jsonString, Constants.TEN);
+				MyWriter JSONWriterCSU = new MyWriter(jsonString, Constants.ROOT_PATH+Constants.TEN);
 
 				
 				// create ObjectOutputStream object
@@ -98,7 +98,7 @@ public class ComputerCommand_Server extends RoverServerRunnable {
 					// MyWriter arguments are:
 					// MyWriter writerName = new MyWriter(className, Constants.GroupNumber)
 					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(moduleOneClass, Constants.ONE);
+					MyWriter JSONWriter = new MyWriter(moduleOneClass, Constants.ROOT_PATH+Constants.ONE);
 					System.out.println("");
 					System.out.println("<Server One>");
 					moduleOneClass.printObject();
@@ -107,7 +107,7 @@ public class ComputerCommand_Server extends RoverServerRunnable {
 				}
 				else if(message.equalsIgnoreCase("MODULE_TWO_GET")) {
 					// The server reads another a JSON Object in memory
-					GlobalReader JSONReader = new GlobalReader(Constants.TWO);
+					GlobalReader JSONReader = new GlobalReader(Constants.ROOT_PATH+Constants.TWO);
 					JSONObject thatOtherObject = JSONReader.getJSONObject();
 					
 					// Integers are passed as longs

@@ -37,7 +37,7 @@ public class CHEMIN_Client extends RoverClientRunnable{
 			// write object to Socket
 			outputToAnotherObject.writeObject(" \t I need power : CCSU- " );
 			
-			GlobalReader JSONReader = new GlobalReader(Constants.NINE);
+			GlobalReader JSONReader = new GlobalReader(Constants.ROOT_PATH+Constants.NINE);
 			JSONObject thatOtherObject = JSONReader.getJSONObject();
 			thatOtherObject.put("myInteger", Constants.NINE);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();

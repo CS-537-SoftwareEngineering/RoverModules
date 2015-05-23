@@ -13,7 +13,7 @@ import com.google.gson.GsonBuilder;
 
 public class MyWriter {
 
-	public MyWriter(Object myObject, int groupNumber) {
+	public MyWriter(Object myObject, String  groupNumber) {
 		
 		// groupNumber is your group number
 		
