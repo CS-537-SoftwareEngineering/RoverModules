@@ -4,7 +4,7 @@ Requirements:
 
  + Gson and JSON Simple JARS
 
- + Generic Framework - These files are depend on the Rover Client classes
+ + Generic Framework - These file depend on the Rover Client classes
 
 Notes:
 
