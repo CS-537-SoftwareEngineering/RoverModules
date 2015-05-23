@@ -2,5 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/GenericFramework/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/GenericFramework/lib/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="/GenericFramework/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/GenericFramework/lib/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/GenericFramework/lib/poi-ooxml-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/GenericFramework/lib/poi-ooxml-schemas-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/GenericFramework/lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
