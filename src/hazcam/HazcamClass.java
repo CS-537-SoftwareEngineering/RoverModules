@@ -87,13 +87,12 @@ public class HazcamClass {
 	}
 	
 	public void printObject() {
-		System.out.println("===========================================");
-		System.out.println("myInteger = " + this.myInteger);
-		System.out.println("myBoolean = " + this.myBoolean);
-		System.out.println("myDouble = " + this.myDouble);
-		System.out.println("myLong = " + this.myLong);
-		System.out.println("myString = " + this.myString);
-		System.out.println("===========================================");
+		System.out.println("=====================START======================");
+		//System.out.println("myBoolean = " + this.myBoolean);
+		//System.out.println("myDouble = " + this.myDouble);
+		//System.out.println("myLong = " + this.myLong);
+		//System.out.println("myString = " + this.myString);
+		System.out.println("=====================END======================");
 	}
 
 

@@ -28,7 +28,7 @@ public class HazcamServer extends RoverServerRunnable {
 	@Override
 	public void run() {
 
-		HazcamClass moduleOneClass = new HazcamClass(1);
+		HazcamClass Hazcam_Class = new HazcamClass(1);
 
 		try {
 
@@ -59,7 +59,7 @@ public class HazcamServer extends RoverServerRunnable {
 								+ message);
 
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
-				String jsonString = gson.toJson(moduleOneClass);
+				String jsonString = gson.toJson(Hazcam_Class);
 
 				outputToAnotherObject.writeObject(jsonString);
 
@@ -77,7 +77,7 @@ public class HazcamServer extends RoverServerRunnable {
 					System.out.println("<Server HazCam>");
 					System.out.println("This is module " + Constants.FIFTEEN
 							+ "'s object at the start");
-					moduleOneClass.printObject();
+					//Hazcam_Class.printObject();
 					System.out.println("<Server HazCam>");
 					System.out.println("");
 				} else if (message
@@ -90,12 +90,12 @@ public class HazcamServer extends RoverServerRunnable {
 					// MyWriter writerName = new MyWriter(className,
 					// Constants.GroupNumber)
 					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(moduleOneClass,
+					MyWriter JSONWriter = new MyWriter(Hazcam_Class,
 							Constants.ONE);
 					System.out.println("");
 					System.out.println("<HazCam Server>");
 					Thread.sleep(1000);
-					// moduleOneClass.printObject();
+					// Hazcam_Class.printObject();
 					System.out
 							.println("HCAM_FRONT_CAM1_ON (to turn on the front camera1)");
 					Thread.sleep(1000);
@@ -117,7 +117,7 @@ public class HazcamServer extends RoverServerRunnable {
 					// MyWriter writerName = new MyWriter(className,
 					// Constants.GroupNumber)
 					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(moduleOneClass,
+					MyWriter JSONWriter = new MyWriter(Hazcam_Class,
 							Constants.ONE);
 					System.out.println("");
 					System.out.println("<HazCam Server>");
@@ -143,7 +143,7 @@ public class HazcamServer extends RoverServerRunnable {
 					// MyWriter writerName = new MyWriter(className,
 					// Constants.GroupNumber)
 					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(moduleOneClass,
+					MyWriter JSONWriter = new MyWriter(Hazcam_Class,
 							Constants.ONE);
 
 					System.out.println("");
@@ -170,7 +170,7 @@ public class HazcamServer extends RoverServerRunnable {
 					// MyWriter writerName = new MyWriter(className,
 					// Constants.GroupNumber)
 					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(moduleOneClass,
+					MyWriter JSONWriter = new MyWriter(Hazcam_Class,
 							Constants.ONE);
 
 					System.out.println("");
@@ -206,8 +206,7 @@ public class HazcamServer extends RoverServerRunnable {
 							.println("===========================================");
 					System.out.println("This is Class " + Constants.TWO
 							+ "'s object ");
-					System.out.println("myInteger = " + myInteger);
-					System.out.println("myString = " + myString);
+					Hazcam_Class.printObject();
 					System.out
 							.println("===========================================");
 					System.out.println("<End> Hazcam Server Receiving <End>");
