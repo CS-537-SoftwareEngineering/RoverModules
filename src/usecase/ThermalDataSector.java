@@ -5,8 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
@@ -105,6 +107,19 @@ public class ThermalDataSector {
 
 	public Map<Modules, ModuleBase> getModuleMap() {
 		return moduleMap;
+	}
+	
+	public ModuleBase getModule(Modules mod){
+		return moduleMap.get(mod);
+	}
+	
+	public String getModTemps(){
+		String output = "";
+		for (Entry<Modules, ModuleBase> entry : moduleMap.entrySet())
+		{
+		    output += entry.getKey() + "/" + entry.getValue().getCurrTemp();
+		}
+		return output;
 	}
 
 	/**

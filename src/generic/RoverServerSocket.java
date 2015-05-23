@@ -32,8 +32,10 @@ public class RoverServerSocket {
 			serverSocket = new ServerSocket(getPort());
 		return serverSocket;
 	}
-	public void openSocket() throws IOException{
-		setSocket(serverSocket.accept());
+	public Socket openSocket() throws IOException{
+		Socket socket = serverSocket.accept();
+		setSocket(socket);
+		return socket;
 	}
 	public int getPort() {
 		return port;
