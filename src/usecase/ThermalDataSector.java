@@ -3,7 +3,9 @@ package usecase;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -112,13 +114,40 @@ public class ThermalDataSector {
 	public ModuleBase getModule(Modules mod){
 		return moduleMap.get(mod);
 	}
-	
+	public String getOutsideTemperature() {
+
+		System.out.println("GetTemperature() called");
+
+		Calendar cal = Calendar.getInstance();
+		cal.getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		String currentTime = sdf.format(cal.getTime());
+		String[] currTime = currentTime.split(":");
+
+		int minutes =  Integer.parseInt(currTime[0]) * 60
+				+ Integer.parseInt(currTime[1]);
+		
+		minutes=minutes-(minutes%10);
+		
+//	    System.out.println(minutes);
+		//System.out.println("Returned current temperature :"+tempChart.get(minutes));
+		
+		TemperatureResponse tempResp =  new TemperatureResponse("ATMOSPHERE", tempChart.get(minutes));
+		return tempResp.jsonify();
+
+		//return tempChart.get(minutes).toString();
+
+	}
 	public String getModTemps(){
-		String output = "";
+		String output = "{\"list\":";
 		for (Entry<Modules, ModuleBase> entry : moduleMap.entrySet())
 		{
-		    output += entry.getKey() + "/" + entry.getValue().getCurrTemp();
+			TemperatureResponse tempResp =  new TemperatureResponse(entry.getKey().toString(), entry.getValue().getCurrTemp());
+			output += tempResp.jsonify();
+		    //output += entry.getKey() + "/" + entry.getValue().getCurrTemp();
 		}
+		output += "}";
+		//System.out.println(output);
 		return output;
 	}
 
