@@ -30,7 +30,7 @@ public class ThermalDataSector {
 
 	private Map<Modules, ModuleBase> moduleMap;
 	
-	private String filePath = "C:\\Users\\Mahdiye\\git\\ExampleCode\\data\\";
+	private String filePath = "C:\\Users\\debasish\\git\\RoverModules\\data\\";
 
 	/**
 	 * tempChart map holds 1480 temperatures indicating a sol temp in Mars key

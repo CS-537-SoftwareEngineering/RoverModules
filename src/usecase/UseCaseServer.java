@@ -21,6 +21,7 @@ public class UseCaseServer extends RoverServerRunnable{
 	public UseCaseServer(int port) throws IOException {
 		super(port);
 		this.port = port;		
+		setStatus(true);
 	}
 
 	@Override

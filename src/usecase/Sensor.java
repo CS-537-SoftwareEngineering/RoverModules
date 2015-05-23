@@ -1,24 +1,29 @@
 package usecase;
 
 import generic.RoverClientRunnable;
-
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class Sensor extends RoverClientRunnable {
-	public int ID;
-	public float temperature;
+	Modules ID;
 	public int waitTime = 2000;
+	Modules name;
+	ModuleBase moduleBase;
+	public double currentTemp;
 	
 	private State state;
 
-	public Sensor(int port, InetAddress host, int ID)
+	public Sensor(int port, InetAddress host, Modules ID, ModuleBase moduleBase)
 			throws UnknownHostException {
 		super(port, host);
 		startUp();
 		this.ID = ID;
+		this.moduleBase = moduleBase;
+		
 	}
 
 	@Override
@@ -26,26 +31,23 @@ public class Sensor extends RoverClientRunnable {
 		// TODO Auto-generated method stub
 		try {
 			ObjectOutputStream oos = null;
-			ObjectInputStream ois = null;
 			Thread.sleep(waitTime);
 			// while the rover is ON the sensors work
+
 			while (state == State.ON) {
-				temperature = randomTemperature();
+
+				currentTemp = randomTemperature(moduleBase.minTemp, moduleBase.maxTemp);
 				
 				oos = new ObjectOutputStream(getRoverSocket().getNewSocket()
 						.getOutputStream());
-				System.out.println("Sensor" + ID + " " + temperature);
-				oos.writeObject("Sensor" + ID + " " + temperature);
+				String data = ID.toString() + " " + currentTemp;
 				
-				// read the server response message
-				ois = new ObjectInputStream(getRoverSocket().getSocket()
-						.getInputStream());
-				String message = (String) ois.readObject();
-				
-				if (message != null);
+				Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-				// close resources
-				ois.close();
+				String jsonString = gson.toJson(data);
+				//System.out.println(jsonString);
+				oos.writeObject(jsonString);
+				
 				oos.close();
 				Thread.sleep(waitTime);
 			}
@@ -54,7 +56,7 @@ public class Sensor extends RoverClientRunnable {
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (Exception error) {
-			System.out.println("Sensor" + ID + ": Error:"
+			System.out.println(": Error:"
 					+ error.getMessage());
 		}
 	}
@@ -67,8 +69,9 @@ public class Sensor extends RoverClientRunnable {
 		this.state = State.ON;
 	}
 	
-	public float randomTemperature(){
-		// returns a temperature between 50 and -130
-		return (float)Math.random()*(180) - 130;
+	public double randomTemperature(double min, double max){
+		// add a temperature between -1 and 1 to the range
+		double randomTemp = (float)Math.random()*2 - 1;
+		return (double)Math.random()*(max) + min + randomTemp;
 	}
 }

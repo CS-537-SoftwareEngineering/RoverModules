@@ -5,14 +5,14 @@ import generic.RoverThreadHandler;
 import java.io.IOException;
 
 import usecase.Sensor;
+import usecase.SensorManager;
 import usecase.UseCaseServer;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int noOfSensors = 5;
-		int port = 9897;
+		// TODO Auto-generated method stub		
+		int port = 9897;		
 
 		try {
 
@@ -20,16 +20,13 @@ public class Main {
 			Thread server = RoverThreadHandler.getRoverThreadHandler().getNewThread(useCaseServer);
 
 			server.start();
-			for (int i = 0; i < noOfSensors; i++) {
-				Sensor sensor = new Sensor(port, null, i + 1);
-				Thread client = RoverThreadHandler.getRoverThreadHandler().getNewThread(sensor);
-				client.start();
-			}
+			
+			SensorManager.getSensorManager();
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }

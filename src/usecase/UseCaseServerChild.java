@@ -36,9 +36,9 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	}
 	
 	public void processCommand(){
-		ModuleBase modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(deviceStr));
+		//ModuleBase modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(deviceStr));
 		//
-		modBase.getCurrTemp();
+		//modBase.getCurrTemp();
 		//
 		ThermalDataSector.getTempDataSector().getModTemps();
 		//
@@ -57,15 +57,16 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	        commandStr = (String) ois.readObject();
 	        System.out.println("Server: Message Received from Client - " + commandStr.toUpperCase());
 	        //create ObjectOutputStream object
-	        ObjectOutputStream oos = new ObjectOutputStream(this.getSocket().getOutputStream());
+	        //ObjectOutputStream oos = new ObjectOutputStream(this.getSocket().getOutputStream());
 	        //write object to Socket
-	        oos.writeObject("Server says Hi Client - " + commandStr);
+	        //oos.writeObject("Server says Hi Client - " + commandStr);
 	        //close resources
 	        processCommand();
 	        ois.close();
-	        oos.close();
+	        //oos.close();
 	        //getRoverServerSocket().closeSocket();
 	        //terminate the server if client sends exit request
+	        socket.close();
 	        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
