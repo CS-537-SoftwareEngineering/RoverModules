@@ -20,9 +20,9 @@ import com.google.gson.GsonBuilder;
 
 import generic.RoverServerRunnable;
 
-public class ModuleTwoServer extends RoverServerRunnable {
+public class TELServer extends RoverServerRunnable {
 
-	public ModuleTwoServer(int port) throws IOException {
+	public TELServer(int port) throws IOException {
 		super(port);
 	}
 

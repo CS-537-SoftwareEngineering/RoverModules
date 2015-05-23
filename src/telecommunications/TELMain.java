@@ -1,7 +1,7 @@
 package telecommunications;
 
 
-public class ModuleTwoMain {
+public class TELMain {
     
     public static void main(String args[]) {
         
