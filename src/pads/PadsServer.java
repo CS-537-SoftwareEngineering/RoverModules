@@ -28,6 +28,8 @@ public class PadsServer extends RoverServerRunnable{
 		
 		Pads pads = new Pads();
 		
+		String objectToClean = "CLEAN_SURFACE"; 
+		Drt drt = new Drt(objectToClean); 
 		
 		try {
 			while (true) {
@@ -45,20 +47,11 @@ public class PadsServer extends RoverServerRunnable{
 				System.out.println("");
 				System.out.println("PADS Server: Message Received from Client - "+ message.toUpperCase());
 				
-				// create ObjectOutputStream object
 				ObjectOutputStream outputToAnotherObject = new ObjectOutputStream(getRoverServerSocket().getSocket().getOutputStream());
-				
-				// write object to Socket
-				outputToAnotherObject.writeObject("PADS Server response Hi Client - " + message);
-				
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
-				String jsonString = gson.toJson(pads);
 				
-				outputToAnotherObject.writeObject(jsonString);
 				
-				// close resources
-				inputFromAnotherObject.close();
-				outputToAnotherObject.close();
+				
 				
 				if (message.equalsIgnoreCase("exit")){
 					break;
@@ -72,6 +65,10 @@ public class PadsServer extends RoverServerRunnable{
 				
 				else if(message.equalsIgnoreCase("PADS_DRILL_START")) {
 					
+//					@SuppressWarnings("unused")
+//					MyWriter JSONWriter = new MyWriter(pads, 1);
+					String jsonString = gson.toJson(pads);
+					outputToAnotherObject.writeObject(jsonString);
 					PadsController controller = new PadsController();
 					controller.action("PADS_SET_POSITION");
 					Thread.sleep(5000);
@@ -82,7 +79,8 @@ public class PadsServer extends RoverServerRunnable{
 											
 				}
 				else if(message.equalsIgnoreCase("PADS_DRT_START")) {
-					
+					String jsonString = gson.toJson(drt);
+					outputToAnotherObject.writeObject(jsonString);
 					PadsController controller = new PadsController();
 					Thread.sleep(3000);
 					controller.action("PADS_DRT_SET_MODE");
@@ -93,13 +91,17 @@ public class PadsServer extends RoverServerRunnable{
 					Thread.sleep(5000);
 					
 				}else if(message.equalsIgnoreCase("PADS_REPLACE_BITS")) {
-					
+					String jsonString = gson.toJson(pads);
+					outputToAnotherObject.writeObject(jsonString);
 					PadsController controller = new PadsController();
 					Thread.sleep(3000);
 					controller.action("PADS_REPLACE_BITS");
 					Thread.sleep(5000);
 					
 				}
+				
+				inputFromAnotherObject.close();
+				outputToAnotherObject.close();
 			}
 			
 			System.out.println("Server: Shutting down Socket server 1!!");

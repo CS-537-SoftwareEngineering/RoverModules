@@ -49,7 +49,7 @@ public class PadsController implements Runnable{
 	public void getStatus() {
 		// TODO Auto-generated method stub
 		if(status=true){
-			System.out.println("Drill is currently functioning...");
+			System.out.println("Drill is currently functioning..");
 		}else {
 			System.out.println("Drill is sleeping..");
 		}
@@ -62,11 +62,11 @@ public class PadsController implements Runnable{
 	}
 	public void disEngageBits() {
 		// TODO Auto-generated method stub
-		System.out.println("Disengaging drill bits...."); 
+		System.out.println("DisEngaging drill bits.."); 
 	}
 	public void loadBits() {
 		// TODO Auto-generated method stub
-		System.out.println("Loading bits...."); 
+		System.out.println("Loading bits.."); 
 	}
 	
 	public void replaceBits() {
@@ -76,7 +76,7 @@ public class PadsController implements Runnable{
 	public void setDrtMode() {
 		// TODO Auto-generated method stub
 		System.out.println("");
-		System.out.println("PADS_DRT_SET_MODE: Setting up DTR mode.."); 
+		System.out.println("PADS_DRT_SET_MODE: Setting up DRT mode.."); 
 		
 	}
 	public void startDrt() {

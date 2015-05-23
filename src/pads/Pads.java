@@ -2,7 +2,12 @@ package pads;
 
 public class Pads {
 
+	//status = 0 - Drill is not functioning
+	//status = 1 - Drill is functioning
 	private int status;
+	
+	//true - PADS successfully able to get sample from the mars.
+	//false - PADS is not able to get sample from surface of the mars.
 	private boolean sample;
 	
 	public Pads() {
