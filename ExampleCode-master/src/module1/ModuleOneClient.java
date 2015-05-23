@@ -105,7 +105,7 @@ public class ModuleOneClient extends RoverClientRunnable{
 				System.out.println("");
 				System.out.println("<Start> Client 1 now has: <Start>");
 				System.out.println("===========================================");
-				System.out.println("This is Class " + Constants.TWO + "'s object ");
+				System.out.println("This is Class " + Constants.SIXTEEN + "'s object ");
 				System.out.println("ARM_ON = " + ARM_ON);
 				System.out.println("CAMERA_ON = " + CAMERA_ON);
 				System.out.println("shoulder_arm_angle_theta1 = " + angle_theta1);

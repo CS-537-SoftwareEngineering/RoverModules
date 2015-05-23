@@ -90,6 +90,8 @@ public class ModuleTwoServer extends RoverServerRunnable {
 					//moduleTwoClass.changeString();
 					
 					//getting the fake camera value and Rover value, whether is on or off from another team
+					//right now I am getting one single value and assigning them to "thatOtherObject"
+					//for testing purposes. In reality it should have 2 JSONReaders with 2 boolean values.
 					GlobalReader JSONReader = new GlobalReader(Constants.ONE);
 					JSONObject thatOtherObject = JSONReader.getJSONObject();
 					
@@ -101,18 +103,20 @@ public class ModuleTwoServer extends RoverServerRunnable {
 					
 					boolean instrument = (boolean) thatOtherObject1.get("instrument");
 					
-					//for all instruments and check which one wants to move
+					//for instruments and check which one wants to move
 					int drt = (instrument)?1:0;
 					int mahli = 0;
 					int drill = 0;
 					int apxs = 0;
 					int chimra = 0;
 					
-					//
 					
+					//store json values to my own class
 					arm.setCAMERA_ON(myBoolean);
-					
+					//store json values to my own class
 					arm.setROVER_MOVE(myBoolean);
+					
+					//the above storage is for if/else purposes like the one below
 					
 					if(arm.CAMERA_ON == false && arm.ROVER_MOVE == false){
 						arm = arm.move(50, 120, drt, mahli, drill, apxs, chimra);
@@ -177,8 +181,10 @@ public class ModuleTwoServer extends RoverServerRunnable {
 				else if(message.equalsIgnoreCase("TURN_OFF_ARM")) {
 					// The server reads another a JSON Object in memory
 					
-					//this writes to json to turn off arm
+					//turns off the arm but not write it in to JSON
 					//arm.ARM_PWR_OFF();
+					System.out.println("The arm is shutting down....");
+					System.out.println("Arm is OFF");
 					//@SuppressWarnings("unused")
 					//MyWriter JSONWriter = new MyWriter(arm, Constants.TWO);
 					//end of turning off arm
