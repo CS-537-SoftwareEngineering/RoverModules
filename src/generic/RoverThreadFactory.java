@@ -29,7 +29,6 @@ class RoverThreadFactory implements ThreadFactory {
        stats = new ArrayList<String>();
     }
 
-	@Override
 	public Thread newThread(Runnable runnable) {
 		Thread t = new RoverThread(runnable, name + "-Thread_" + counter);
 	      counter++;
