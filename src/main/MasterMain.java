@@ -9,7 +9,6 @@ import generic.RoverThreadHandler;
 
 import java.io.IOException;
 
-import json.Constants;
 import mastCam.controller.MastCamServer;
 import mastCam.controller.Ports;
 
@@ -20,6 +19,7 @@ public class MasterMain {
 			// create a thread for module one
 			MastCamServer server = new MastCamServer(Ports.MASTCAM_PORT);
 			Thread serverThread = RoverThreadHandler.getRoverThreadHandler().getNewThread(server);
+			serverThread.start();
 		} 
 		catch (IOException e) {
 			// TODO Auto-generated catch block
