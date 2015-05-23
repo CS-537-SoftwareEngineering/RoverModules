@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 
 public class TemperatureResponse {
 	String name;
-	double temperature;
+	String temperature;
 	
 	TemperatureResponse(String name, double temperature){
 		setName(name);
@@ -20,12 +20,12 @@ public class TemperatureResponse {
 		this.name = name;
 	}
 
-	public double getTemperature() {
+	public String getTemperature() {
 		return temperature;
 	}
 
 	public void setTemperature(double temperature) {
-		this.temperature = temperature;
+		this.temperature = Double.toString(temperature);
 	}
 	
 	public String jsonify(){

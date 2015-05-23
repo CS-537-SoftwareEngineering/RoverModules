@@ -40,13 +40,14 @@ public class Sensor extends RoverClientRunnable {
 				
 				oos = new ObjectOutputStream(getRoverSocket().getNewSocket()
 						.getOutputStream());
-				String data = ID.toString() + " " + currentTemp;
+				TemperatureResponse tempResp = new TemperatureResponse(ID.toString(), currentTemp);
+				String data = tempResp.jsonify();
 				
-				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				//Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-				String jsonString = gson.toJson(data);
+				//String jsonString = gson.toJson(data);
 				//System.out.println(jsonString);
-				oos.writeObject(jsonString);
+				oos.writeObject(data);
 				
 				oos.close();
 				Thread.sleep(waitTime);

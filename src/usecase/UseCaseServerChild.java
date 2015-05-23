@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Iterator;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,6 +21,8 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	private String commandStr;
 	
 	private String moduleName;
+	
+	private String sensorTemp;
 	
 	private String responseString;
 	
@@ -41,20 +44,27 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	}
 	public void checkCommand()
 	{
-	  String jsonString = "{\"data\":{\"name\":\"Chemcam\",\"Command2\":\"CURRENT_TEMP\"}}";
+	  //String jsonString = "{\"data\":{\"name\":\"Chemcam\",\"Command\":\"CURRENT_TEMP\"}}";
 	  // String jsonString = "{'data':{'name':'Chemcam','Command':'CURRENT_TEMP'}}";
 	  org.json.JSONObject jObject;
 	  
 	  //converting string to JSON
       try
       {
-	    jObject = new org.json.JSONObject(jsonString);
-	    org.json.JSONObject data = jObject.getJSONObject("data"); // get data object
-		moduleName = data.getString("name"); // get the name from data.
-		moduleCommand = data.getString("command");
+	    jObject = new org.json.JSONObject(commandStr);
+	    //org.json.JSONObject data = jObject.getJSONObject("data"); // get data object
+	    Iterator<String> keys = jObject.keys();
+		System.out.println("All keys from JSON String:");
+		while (keys.hasNext()){
+			String key = keys.next();
+	      System.out.println(key +" " + jObject.getString(key).toString());
+	    }
+		//moduleName = data.getString("name"); // get the name from data.
+		//moduleCommand = data.getString("command");
+		//sensorTemp = data.getDouble("");
 		
-		System.out.println("Name: "+moduleName);
-		System.out.println("Command: " + moduleCommand);
+		//System.out.println("Name: "+moduleName);
+		//System.out.println("Command: " + moduleCommand);
 		  
       } catch (org.json.JSONException e)
       {
@@ -70,8 +80,9 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		//
 		checkCommand();
 		ModuleBase modBase = null;
-		if(moduleName.isEmpty() != true)
+		if(moduleName.isEmpty() != true){
 			modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(moduleName.toUpperCase()));
+		}
 		switch(ThermalCommands.valueOf(moduleCommand.toUpperCase())){
 			case CURRENT_TEMPERATURE:
 				responseString = ThermalDataSector.getTempDataSector().getOutsideTemperature();
@@ -107,12 +118,12 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	        //convert ObjectInputStream object to String
 	        commandStr = (String) ois.readObject();
 	        System.out.println("Server: Message Received from Client - " + commandStr.toUpperCase());
+	        processCommand();
 	        //create ObjectOutputStream object
 	        ObjectOutputStream oos = new ObjectOutputStream(this.getSocket().getOutputStream());
 	        //write object to Socket
-	        oos.writeObject("Server says Hi Client - " + commandStr);
-	        //close resources
-	        processCommand();
+	        oos.writeObject(responseString);
+	        //close resources	        
 	        ois.close();
 	        oos.close();
 	        //getRoverServerSocket().closeSocket();

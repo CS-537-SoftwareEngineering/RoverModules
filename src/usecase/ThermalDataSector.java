@@ -139,14 +139,14 @@ public class ThermalDataSector {
 
 	}
 	public String getModTemps(){
-		String output = "{\"list\":";
+		String output = "{\"list\":[";
 		for (Entry<Modules, ModuleBase> entry : moduleMap.entrySet())
 		{
 			TemperatureResponse tempResp =  new TemperatureResponse(entry.getKey().toString(), entry.getValue().getCurrTemp());
 			output += tempResp.jsonify();
-		    //output += entry.getKey() + "/" + entry.getValue().getCurrTemp();
+		    output += ",\n";
 		}
-		output += "}";
+		output += "]}";
 		//System.out.println(output);
 		return output;
 	}
