@@ -1,6 +1,7 @@
 package usecase;
 
 import generic.RoverClientRunnable;
+
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -42,11 +43,7 @@ public class Sensor extends RoverClientRunnable {
 						.getOutputStream());
 				TemperatureResponse tempResp = new TemperatureResponse(ID.toString(), currentTemp);
 				String data = tempResp.jsonify();
-				
-				//Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-				//String jsonString = gson.toJson(data);
-				//System.out.println(jsonString);
 				oos.writeObject(data);
 				
 				oos.close();
@@ -71,8 +68,18 @@ public class Sensor extends RoverClientRunnable {
 	}
 	
 	public double randomTemperature(double min, double max){
-		// add a temperature between -1 and 1 to the range
-		double randomTemp = (float)Math.random()*2 - 1;
-		return (double)Math.random()*(max) + min + randomTemp;
+		double check = (float)Math.random();
+		if (check >= 0 && check < 0.25){
+			return (double)Math.random()*(max - min) + min;
+		}
+		else if (check >= 0.25 && check < 0.75){
+			//return a value between min + 10 and min
+			return (double)Math.random()*(10) + (min - 10);
+		}
+		else if (check >= 0.75 && check <= 1){
+			//return a value between max and max + 10
+			return (double)Math.random()*(10) + (max);
+		}
+		return 0;
 	}
 }
