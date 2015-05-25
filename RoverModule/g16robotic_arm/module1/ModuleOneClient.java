@@ -68,6 +68,7 @@ public class ModuleOneClient extends RoverClientRunnable{
 	            //my stuff based on JSON format
 	            boolean ARM_ON = (boolean)jsonObject.get("ARM_ON");
 	            boolean CAMERA_ON = (boolean)jsonObject.get("CAMERA_ON");
+	            boolean ROVER_MOVE = (boolean)jsonObject.get("ROVER_MOVE");
 	            
 	            Long long_angle_theta1 = (Long) jsonObject.get("shoulder_arm_angle_theta1");
 	            Integer angle_theta1 = new Integer(long_angle_theta1.intValue());
@@ -108,6 +109,7 @@ public class ModuleOneClient extends RoverClientRunnable{
 				System.out.println("This is Class " + Constants.SIXTEEN + "'s object ");
 				System.out.println("ARM_ON = " + ARM_ON);
 				System.out.println("CAMERA_ON = " + CAMERA_ON);
+				System.out.println("ROVER_MOVE = " + ROVER_MOVE );
 				System.out.println("shoulder_arm_angle_theta1 = " + angle_theta1);
 				System.out.println("arm_wrist_angle_theta2 = " + angle_theta2);
 				System.out.println("DRT = " + DRT);

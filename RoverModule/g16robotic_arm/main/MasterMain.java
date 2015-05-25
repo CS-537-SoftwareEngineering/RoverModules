@@ -11,18 +11,17 @@ import java.io.IOException;
 
 import json.Constants;
 import module1.ModuleOneClient;
-import module1.ModuleOneServer;
 import module16.ModuleSixteenServer;
-import module2.ModuleTwoClient;
-import module2.ModuleTwoServer;
+//import module2.ModuleTwoClient;
+//import module2.ModuleTwoServer;
 
 public class MasterMain {
 
 	public static void main(String[] args) {
 		
 		//Each module has its own port
-		int port_one = Constants.PORT_ONE;
-		int port_two = Constants.PORT_TWO;
+		//int port_one = Constants.PORT_ONE;
+		//int port_two = Constants.PORT_TWO;
 		int port_sixteen = Constants.PORT_SIXTEEN;
 		
 		try {

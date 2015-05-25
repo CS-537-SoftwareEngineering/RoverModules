@@ -1,4 +1,4 @@
-package module16;
+package main;
 
 //make it a thread
 public class Rover_Arm {
@@ -309,13 +309,10 @@ public class Rover_Arm {
 		//int arm_off_time_int = (int) arm_off_time; 
 		//set On to false;
 		setARM_ON(false);
-		//this.setInstrument("No instrument Arm is OFF");
 		this.setShoulder_arm_angle_theta1(20);
 		this.setArm_wrist_angle_theta2(10);
 		this.setPower(0);
 		this.setTime(5);
-		//this.setTemperature("");
-		//this.setInstrument_time("");
 		
 		return arm_off_time;	
 	}
@@ -338,13 +335,9 @@ public class Rover_Arm {
 		//set to stow values
 		int time_int = (int) time;
 		
-		//this.setInstrument("Stowed Arm");
 		this.setShoulder_arm_angle_theta1(20);
 		this.setArm_wrist_angle_theta2(10);
-		//this.setPower(POWER);
 		this.setTime(time_int);
-		//this.setTemperature("");
-		//this.setInstrument_time("");
 		
 		
 		return time;
@@ -352,7 +345,6 @@ public class Rover_Arm {
 	
 	public void setArm_stow(long time){
 		
-		//this.setInstrument("ARM_PWR_STOW");
 		this.setShoulder_arm_angle_theta1(20);
 		this.setArm_wrist_angle_theta2(10);
 		this.setDRT(0);
@@ -361,7 +353,6 @@ public class Rover_Arm {
 		this.setAPXS(0);
 		this.setCHIMRA(0);
 		this.setPower(ARM_POWER_VALUE());
-		//this.setTime(time);
 	}
 	
 	public long ARM_POWER_VALUE(){
@@ -418,15 +409,6 @@ public class Rover_Arm {
 	public void setARM_ON(boolean aRM_ON) {
 		ARM_ON = aRM_ON;
 	}
-
-//	public String getInstrument() {
-//		return instrument;
-//	}
-//
-//	public void setInstrument(String instrument) {
-//		this.instrument = instrument;
-//	}
-
 
 	public int getDRT() {
 		return DRT;

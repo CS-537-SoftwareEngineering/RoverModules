@@ -1,4 +1,4 @@
-package module2;
+package module16;
 
 /*	
  * Created by: 	Jonathan Young
@@ -12,18 +12,20 @@ import java.io.ObjectOutputStream;
 import json.Constants;
 import json.GlobalReader;
 import json.MyWriter;
+import main.Rover_Arm;
 
 import org.json.simple.JSONObject;
 
+import callback.CallBack;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import generic.RoverServerRunnable;
 
-public class ModuleTwoServer extends RoverServerRunnable {
+public class ModuleSixteenServer extends RoverServerRunnable {
 
-	public ModuleTwoServer(int port) throws IOException {
+	public ModuleSixteenServer(int port) throws IOException {
 		super(port);
 	}
 
@@ -78,10 +80,10 @@ public class ModuleTwoServer extends RoverServerRunnable {
 					System.out.println("The arm took: " + time);
 					
 					System.out.println("");
-					System.out.println("<Server Two>");
+					System.out.println("<Server Sixteen>");
 					System.out.println("This is module " + Constants.SIXTEEN + "'s object at the start");
 					arm.printObject();
-					System.out.println("<Server Two>");
+					System.out.println("<Server Sixteen>");
 					System.out.println("");
 				}
 				else if(message.equalsIgnoreCase("MOVE_INSTRUMENT")) {
@@ -118,7 +120,7 @@ public class ModuleTwoServer extends RoverServerRunnable {
 					
 					//the above storage is for if/else purposes like the one below
 					
-					if(arm.CAMERA_ON == false && arm.ROVER_MOVE == false){
+					if(arm.isCAMERA_ON() == false && arm.isROVER_MOVE() == false){
 						arm = arm.move(50, 120, drt, mahli, drill, apxs, chimra);
 						
 						
@@ -158,11 +160,11 @@ public class ModuleTwoServer extends RoverServerRunnable {
 					}else{
 						arm.ARM_PWR_STOW();
 						
-						if(arm.ROVER_MOVE == true){
+						if(arm.isROVER_MOVE() == true){
 							System.out.println("Rover is MOVING, ARM cannot move, set to ARM_BREAK");
 						}
 						
-						if(arm.CAMERA_ON == true){
+						if(arm.isCAMERA_ON() == true){
 							System.out.println("Camera is ON, ARM cannot move, set to ARM_STOW");
 						}
 						
@@ -171,12 +173,14 @@ public class ModuleTwoServer extends RoverServerRunnable {
 					// MyWriter arguments are:
 					// MyWriter writerName = new MyWriter(className, Constants.GroupNumber)
 					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(arm, Constants.TWO);
+					MyWriter JSONWriter = new MyWriter(arm, Constants.SIXTEEN);
 					System.out.println("");
 					System.out.println("<Server Sixteen>");
 					arm.printObject();
 					System.out.println("<Server Sixteen>");
 					System.out.println("");
+					
+					
 				}
 				else if(message.equalsIgnoreCase("TURN_OFF_ARM")) {
 					// The server reads another a JSON Object in memory
@@ -216,6 +220,16 @@ public class ModuleTwoServer extends RoverServerRunnable {
 					System.out.println("===========================================");
 					System.out.println("<End> Module 16 Server Receiving <End>");
 					System.out.println("");
+					
+					
+					/*******************************************/
+					
+					CallBack cb = new CallBack();
+					cb.done();
+	
+					/*******************************************/
+					
+					
 				}
 			}
 			System.out.println("Server: Shutting down Socket server 16!!");
