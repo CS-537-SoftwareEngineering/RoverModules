@@ -91,7 +91,7 @@ public class MastCamServer extends RoverServerRunnable {
 				else if(message.equalsIgnoreCase(Commands.MCAM_CAPTR_VID.toString())){
 					System.out.println("MastCam captured video");
 					if(cameraController.currentMastCam.isOn()){
-						cameraController.currentMastCam.returnVideo();
+						cameraController.currentMastCam.captureVideo();
 					}
 					else {
 						System.out.println("ERROR: Camera is off");

@@ -207,9 +207,13 @@ public class Camera {
 	
 	public void returnPhoto(String type){
 		String filePath = "";
-		if(type.equalsIgnoreCase("thumbnail")) filePath = "images/mastcam/"+capturedImagePath+"-thumbnail.jpg";
-		if(type.equalsIgnoreCase("compressed")) filePath = "images/mastcam/"+capturedImagePath+"-compressed.jpg";
-		if(type.equalsIgnoreCase("original")) filePath = "images/mastcam/"+capturedImagePath+"-original.jpg";
+		if(capturedImagePath.length() > 0){
+			String[] splitStrings = capturedImagePath.split(".jpg");
+			filePath += splitStrings[0];
+		}
+		if(type.equalsIgnoreCase("thumbnail")) filePath += "-thumbnail.jpg";
+		if(type.equalsIgnoreCase("compressed")) filePath += "-compressed.jpg";
+		if(type.equalsIgnoreCase("original")) filePath += "-original.jpg";
 		this.returnedImagePath = filePath;
 	}
 	
