@@ -1,9 +1,6 @@
-package module1;
+package ccu;
 
-/*	
- * Created by: 	Jonathan Young
- * Date: 		May 14, 2015
- */
+
 
 import generic.RoverClientRunnable;
 
@@ -18,6 +15,7 @@ import json.Constants;
 import json.GlobalReader;
 
 public class ComputerCommand_Client extends RoverClientRunnable{
+	private static String prefix = "CCU Client:";
 
 	public ComputerCommand_Client(int port, InetAddress host)
 			throws UnknownHostException {

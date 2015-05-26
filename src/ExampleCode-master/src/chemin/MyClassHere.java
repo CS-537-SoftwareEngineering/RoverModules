@@ -1,18 +1,17 @@
-package module1;
+package chemin;
+
+
 
 import json.Constants;
 import json.GlobalReader;
 
-/*	
- * Created by: 	Jonathan Young
- * Date: 		May 14, 2015
- */
+
 
 public class MyClassHere {
 	private Long Power;
 
-	MyClassHere(int someParameter){
-		GlobalReader reader = new GlobalReader(Constants.ROOT_PATH+Constants.NINE );
+	public MyClassHere(int someParameter){
+		GlobalReader reader = new GlobalReader(Constants.ROOT_PATH+Constants.EIGHT );
 		
 		
 		this.setPower((Long) reader.getJSONObject().get("Power"))  ;

@@ -1,26 +1,18 @@
-package module1;
+package ccu;
 
-/*	
- * Created by: 	Jonathan Young
- * Date: 		May 14, 2015
- */
+
+
+import generic.RoverServerRunnable;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import json.Constants;
-import json.GlobalReader;
-import json.MyWriter;
-import generic.RoverServerRunnable;
-import generic.RoverServerSocket;
+import chemin.MyClassHere;
+import chemin.Requirement;
 
 public class ComputerCommand_Server extends RoverServerRunnable {
+	private static String prefix = "CCU Server:";
 
 	public ComputerCommand_Server(int port) throws IOException {
 		super(port);
@@ -40,8 +32,11 @@ public class ComputerCommand_Server extends RoverServerRunnable {
 				
 				// creating socket and waiting for client connection
 				getRoverServerSocket().openSocket();
-				ObjectInputStream outstream=new ObjectInputStream(getRoverServerSocket().getSocket().getInputStream());
-				System.out.println(outstream.readObject().toString());
+				//ObjectInputStream outstream=new ObjectInputStream(getRoverServerSocket().getSocket().getInputStream());
+				//System.out.println(outstream.readObject().toString());
+				
+
+				
 			}
 		}catch(Exception e){
 			System.out.println(e);
