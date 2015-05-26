@@ -1,25 +1,28 @@
 package module1;
 
-
-
 /*	
  * Created by: 	Jonathan Young
  * Date: 		May 14, 2015
  */
 
+import generic.RoverServerRunnable;
+import generic.RoverServerSocket;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import json.Constants;
-import json.GlobalReader;
 import json.MyWriter;
-import generic.RoverServerRunnable;
+
+import java.io.File;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class CHEMIN_Server extends RoverServerRunnable {
 
@@ -29,16 +32,12 @@ public class CHEMIN_Server extends RoverServerRunnable {
 
 	@Override
 	public void run() {
-		
-		MyClassHere moduleOneClass = new MyClassHere(1);
-		
 		try {
-
 			while (true) {
 				
 				System.out.println("CHEMIN Server: Waiting for client request");
 				
-				// creating socket and waiting for client connection
+				// creating socket and waiting for client connection or for CCU
 				getRoverServerSocket().openSocket();
 				
 				// read from socket to ObjectInputStream object
@@ -46,79 +45,51 @@ public class CHEMIN_Server extends RoverServerRunnable {
 				
 				// convert ObjectInputStream object to String
 				String message = (String) inputFromAnotherObject.readObject();
-				System.out.println("Module 1 Server: Message Received from Client - "+ message.toUpperCase());
+				System.out.println(message.toUpperCase());
 				
 				// create ObjectOutputStream object
 				ObjectOutputStream outputToAnotherObject = new ObjectOutputStream(getRoverServerSocket().getSocket().getOutputStream());
 				
 				// write object to Socket
-				outputToAnotherObject.writeObject("Module 1 Server response Hi Client - " + message);
+				outputToAnotherObject.writeObject("CHEMIN SERVER - OKIE");
 				
-				Gson gson = new GsonBuilder().setPrettyPrinting().create();
-				String jsonString = gson.toJson(moduleOneClass);
+				//Reading JSON file from ccu Client and writing it to my disk
+				String jsonread=inputFromAnotherObject.readObject().toString();
+				MyWriter jsonwrite=new MyWriter(jsonread,Constants.ROOT_PATH+"savin");
+				JSONParser parser=new JSONParser();
+				Object obj=parser.parse(jsonread);
+				JSONObject ob=(JSONObject) obj;
+				System.out.println(ob.containsKey("CHEMIN_TURN_ON"));
+				System.out.println("I got yes from CCU and turning on the instrument now");
 				
-				outputToAnotherObject.writeObject(jsonString);
 				
-				outputToAnotherObject.close();
+				//Sending a json file to power unit
+				RoverServerSocket outputToPower=new RoverServerSocket(9010);
+				System.out.println(outputToPower.getPort());
+				ObjectOutputStream otp=(ObjectOutputStream) outputToPower.getSocket().getOutputStream();
+				otp.writeObject("I need Power");
+				
+				
 				// close resources
 				inputFromAnotherObject.close();
 				outputToAnotherObject.close();
 				
+				//Trying to print Json file in sequence
+				
+				
 				if (message.equalsIgnoreCase("exit"))
-					break;
-				// getRoverServerSocket().closeSocket();
-				// terminate the server if client sends exit request
-				/*if (message.equalsIgnoreCase("exit"))
 					break;
 				else if(message.equalsIgnoreCase("MODULE_PRINT")) {
 					// The server prints out its own object
-					System.out.println("");
-					System.out.println("<Server One>");
-					System.out.println("This is module " + Constants.ONE + "'s object at the start");
-					moduleOneClass.printObject();
-					System.out.println("<Server One>");
-					System.out.println("");
+					System.out.println("Server will pint its own object call PrintObject() Method");
 				}
-				else if(message.equalsIgnoreCase("MODULE_ONE_DO_SOMETHING")) {
-					moduleOneClass.addOne();
-					moduleOneClass.changeBoolean();
-					moduleOneClass.changeDouble();
-					moduleOneClass.changeLong();
-					moduleOneClass.changeString();
-					
-					// Using MyWriter class our server writes the changed object into a JSON file
-					// MyWriter arguments are:
-					// MyWriter writerName = new MyWriter(className, Constants.GroupNumber)
-					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(moduleOneClass, Constants.ONE);
-					System.out.println("");
-					System.out.println("<Server One>");
-					moduleOneClass.printObject();
-					System.out.println("<Server One>");
-					System.out.println("");
+				else if(message.equalsIgnoreCase("commands")) {
+					System.out.println("Read all the commands from Json provided by CCU and execute them sequentially ");
 				}
-				else if(message.equalsIgnoreCase("MODULE_TWO_GET")) {
-					// The server reads another a JSON Object in memory
-					GlobalReader JSONReader = new GlobalReader(Constants.TWO);
-					JSONObject thatOtherObject = JSONReader.getJSONObject();
-					
-					// Integers are passed as longs
-					Long myLong = (Long) thatOtherObject.get("myInteger");
-					
-					// Pass the long back into an integer
-					Integer myInteger = new Integer(myLong.intValue());
-					String myString = (String) thatOtherObject.get("myString");
-					
-					System.out.println("");
-					System.out.println("<Start> Module 1 Server Receiving <Start>");
-					System.out.println("===========================================");
-					System.out.println("This is Class " + Constants.TWO + "'s object ");
-					System.out.println("myInteger = " + myInteger);
-					System.out.println("myString = " + myString);
-					System.out.println("===========================================");
-					System.out.println("<End> Module 1 Server Receiving <End>");
-					System.out.println("");
-				}*/
+				else if(message.equalsIgnoreCase("Read_JSon")) {
+					// the Server will read another Json From another module and write it to memory
+					System.out.println("Read JSon From Another Object");
+				}
 			}
 			System.out.println("Server: Shutting down Socket server 1!!");
 			// close the ServerSocket object

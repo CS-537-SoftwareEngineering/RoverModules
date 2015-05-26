@@ -18,11 +18,12 @@ public class GlobalReader {
 	
 	private JSONObject thatObject = null;
 	
-	public GlobalReader(String groupNumber) {
+	public GlobalReader(String one) {
 		
 		// You no longer need to specify a filepath, only a filename
-		String myFilePath = groupNumber + ".json";
+		String myFilePath = one + ".json";
 		
+			
 		JSONParser parser = new JSONParser();
 		
 		try {
