@@ -96,23 +96,21 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	  	  
 	}
 	public boolean processCommand(){
-		//
-		//
-		//
-		//
+
 		boolean bResult = false;
 		checkCommand();
 		ModuleBase modBase = null;
-		if(moduleName!= null && moduleName.isEmpty() != true){
-			modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(moduleName.toUpperCase()));
-		}
+		
 		if(moduleCommand != null && moduleCommand.isEmpty() != true){
 			switch(ThermalCommands.valueOf(moduleCommand)){
-				case CURRENT_TEMPERATURE:
+				case OUTSIDE_EMPERATURE:					
 					responseString = ThermalDataSector.getTempDataSector().getOutsideTemperature();
 					//System.out.println("CURRENT_TEMPERATURE" +responseString);
 					break;
-				case OUTSIDE_EMPERATURE:
+				case CURRENT_TEMPERATURE:
+					if(moduleName!= null && moduleName.isEmpty() != true){
+						modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(moduleName.toUpperCase()));
+					}
 					modBase.getCurrTemp();
 					TemperatureResponse tempResp =  new TemperatureResponse(moduleName, modBase.getCurrTemp());
 					responseString = tempResp.jsonify();
