@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 
 import json.Constants;
 import json.GlobalReader;
-import json.MyWriter;
 
 import org.json.simple.JSONObject;
 
@@ -29,10 +28,13 @@ public class TELServer extends RoverServerRunnable {
 	@Override
 	public void run() {
 		
-		MyClassHereTwo moduleTwoClass = new MyClassHereTwo(2);
+		UHF uhf = new UHF();
+		Buffer buffer = new Buffer();
 		
 		try {
 			
+		    
+		    
 			while (true) {
 				
 				System.out.println("Telecommunications Server: Waiting for client request");
@@ -54,7 +56,7 @@ public class TELServer extends RoverServerRunnable {
 				outputToAnotherObject.writeObject("Telecommunications Server response Hi Client - " + message);
 				
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
-				String jsonString = gson.toJson(moduleTwoClass);
+				String jsonString = gson.toJson(uhf);
 				
 				outputToAnotherObject.writeObject(jsonString);
 				
@@ -66,12 +68,12 @@ public class TELServer extends RoverServerRunnable {
 				// terminate the server if client sends exit request
 				if (message.equalsIgnoreCase("exit"))
 					break;
-				else if(message.equalsIgnoreCase("MODULE_PRINT")) {
+				else if(message.equalsIgnoreCase("TEL_PRINT_INFO")) {
 					// The server prints out its own object
 					System.out.println("");
 					System.out.println("<Telecommunications>");
 					System.out.println("This is module " + Constants.TWO + "'s object at the start");
-					moduleTwoClass.printObject();
+					uhf.printObject();
 					System.out.println("<Server Two>");
 					System.out.println("");
 				}
@@ -81,27 +83,66 @@ public class TELServer extends RoverServerRunnable {
 				else if(message.equalsIgnoreCase("TEL_POWER_OFF")) {
 				    System.out.println("Antenna power is turned OFF");
 				}
-				else if(message.equalsIgnoreCase("TEL_POWER_OFF")) {
-                    
+				else if(message.equalsIgnoreCase("TEL_FREQUENCY")) {
+                   System.out.println("The Frequency being used for transmission is " + uhf.getFrequency()); 
                 }
+				else if(message.equalsIgnoreCase("TEL_BANDWIDTH")) {
+				    System.out.println("The Bandwidth being used for transmission is " + uhf.getBandwidth());
+                }
+				else if(message.equalsIgnoreCase( "TEL_SIGNAL_RECEIVED" )) {
+				    
+				    // set the parameter for signal received here.
+				    if(uhf.isSignalReceived()) {
+				        System.out.println("The signal is received from Earth");
+				    }
+				    else {
+				        System.out.println("No signal is received");
+				    }
+				}
 				else if(message.equalsIgnoreCase("TEL_RELAY_TO_EARTH")) {
 					// The server reads another a JSON Object in memory
 					GlobalReader JSONReader = new GlobalReader(Constants.ONE);
 					JSONObject ccdObject = JSONReader.getJSONObject();
-
-					String data = (String) ccdObject.get("data");
+					String data = (String) ccdObject.get("data"); 
 					
 					System.out.println("");
-					System.out.println("<Start> Telecommunications Server Receiving <Start>");
-					System.out.println("===========================================");
-					System.out.println("This is Class " + Constants.ONE + "'s object ");
-					System.out.println("data = " + data);
-					Buffer b = new Buffer();
-					b.add(data);
+                    System.out.println("<Start> Telecommunications Server Receiving <Start>");
+                    System.out.println("===========================================");
+                    System.out.println("This is Class " + Constants.ONE + "'s object ");
+                    System.out.println("data = " + data);
+					
+	                // If data can be sent to Earth, send it now else put it in buffer.
+					if(uhf.isSendData()) {
+					    if(!buffer.getData().toString().isEmpty()) {
+					        String dataInBuffer = buffer.getDataString();
+					        System.out.println("Message in the buffer is " + dataInBuffer);
+					        System.out.println("Buffered message is being transmitted now...");
+					        while(buffer.getData().length != 0) {
+					            // this message has to be sent to Earth module.
+					            buffer.transmit();
+					        }
+					        System.out.println("Buffer is now clear, and message is transmitted..");
+					    }
+					    System.out.println("New message is being transmitted now..");
+					    // this message has to be sent to Earth module.
+					    System.out.println("Message = " + data);
+					    
+					}
+					else {
+					    System.err.println("Cannot transmit message to Earth at this time. Message is stored in buffer.");
+					    buffer.push(data);
+					}
+					
+					
+					
+					
+					
+					
 					System.out.println("Sending the data to the Earth...");
 					System.out.println("===========================================");
 					System.out.println("<End> Telecommunications server ends communication <End>");
 					System.out.println("");
+				
 				}
 				else if(message.equalsIgnoreCase("TEL_RELAY_TO_ROVER")) {
                     // The server reads another a JSON Object in memory
@@ -113,8 +154,8 @@ public class TELServer extends RoverServerRunnable {
                     System.out.println("");
                     System.out.println("<Start> Telecommunications Server Receiving <Start>");
                     System.out.println("===========================================");
-                    System.out.println("This is data received from Earth ");
-                    System.out.println("data = " + data);
+                    System.out.println("This is order received from Earth ");
+                    System.out.println("order = " + data);
                     System.out.println("===========================================");
                     System.out.println("<End> Telecommunications Server Receiving <End>");
                     System.out.println("");

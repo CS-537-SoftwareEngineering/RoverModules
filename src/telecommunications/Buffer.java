@@ -4,34 +4,81 @@ package telecommunications;
 
 public class Buffer {
 
-    private final int capacity = 100;
-    private String data[] = new String[capacity];
+    private int capacity = 1000;
+
+    private byte data[] = new byte[capacity];
+
     private int front = 0;
+
     private int top = -1;
 
-    public void add( String pushedElement ) throws Exception
+    public Buffer()
     {
-        if( top < capacity - 1 )
+    }
+
+    // Dynamically set the buffer size ( Only for testing ) In practice, this
+    // cannot be changed.
+    public Buffer( int capacity )
+    {
+        this.capacity = capacity;
+    }
+
+    public byte[] getData()
+    {
+        return data;
+    }
+
+    public String getDataString()
+    {
+        String str = "";
+        for( int j = 0; j < data.length; j++ )
         {
-            top++;
-            data[top] = pushedElement;
+            str += (char) data[j];
         }
-        else
+        return str;
+    }
+
+    public void setData( byte[] data )
+    {
+        this.data = data;
+    }
+
+    public void push( String message ) throws Exception
+    {
+        byte tmp[] = message.getBytes( "UTF-8" );
+
+        for( int i = 0; i < tmp.length; i++ )
         {
-            throw new Exception( "Buffer is full" );
+
+            if( top < capacity - 1 )
+            {
+                top++;
+                data[top] = tmp[i];
+            }
+            else
+            {
+                // String str = "";
+                // for(int j=0; j<data.length; j++) {
+                // str+=(char) data[j];
+                // }
+                // System.out.println("String msg: " + str);
+                throw new Exception(
+                    "Message size exceeds the buffer size. Only the first "
+                        + capacity + " bytes will be stored." );
+            }
         }
     }
 
-    public String transmit()
+    public byte transmit()
     {
         // String temp;
-        String pop = data[front];
+        byte pop = data[front];
         for( int i = 0; i < data.length - 1; i++ )
         {
             // temp=data[i];
             data[i] = data[i + 1];
         }
-        //System.out.println( data[0] );
+        // System.out.println( data[0] );
         return pop;
     }
 }
