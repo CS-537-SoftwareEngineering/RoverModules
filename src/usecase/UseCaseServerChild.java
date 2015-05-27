@@ -115,7 +115,7 @@ public class UseCaseServerChild extends RoverClientRunnable {
 					TemperatureResponse tempResp =  new TemperatureResponse(moduleName, modBase.getCurrTemp());
 					responseString = tempResp.jsonify();
 					//System.out.println("OUTSIDE_EMPERATURE" +responseString);
-					break;
+					break;    
 				case CURRENT_TEMPERATURES:
 					responseString = ThermalDataSector.getTempDataSector().getModTemps();
 					//System.out.println("CURRENT_TEMPERATURES" +responseString);
