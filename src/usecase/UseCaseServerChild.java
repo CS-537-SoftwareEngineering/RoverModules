@@ -138,7 +138,6 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		// TODO Auto-generated method stub
 		
 		try {
-					
 	        //read from socket to ObjectInputStream object
 	        ObjectInputStream ois = new ObjectInputStream(this.getSocket().getInputStream());
 	        //convert ObjectInputStream object to String
@@ -151,6 +150,9 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		        oos.writeObject(responseString);
 		        //close resources
 		        oos.close();
+	        }
+	        else{
+	        	
 	        }
 	        ois.close();
 	        

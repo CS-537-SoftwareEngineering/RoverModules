@@ -7,9 +7,9 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class UseCaseClient extends RoverClientRunnable{
+public class ThermalCommandClient extends RoverClientRunnable{
 
-	public UseCaseClient(int port, InetAddress host) throws UnknownHostException {
+	public ThermalCommandClient(int port, InetAddress host) throws UnknownHostException {
 		super(port, host);
 		// TODO Auto-generated constructor stub
 	}
@@ -26,13 +26,16 @@ public class UseCaseClient extends RoverClientRunnable{
 	            //socket = new Socket(host.getHostName(), 9876);
 	            //write to socket using ObjectOutputStream
 	            oos = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
-	            System.out.println("Client: Sending request to Socket Server");
-	            if(i==4)oos.writeObject("exit");
-	            else oos.writeObject("Test "+i);
+	            //System.out.println("Client: Sending request to Socket Server");
+	            //if(i==4)oos.writeObject("exit");
+	            //else 
+	            CommandData commandData = new CommandData("", "");
+	            String wo = commandData.jsonify();
+            	oos.writeObject(wo);
 	            //read the server response message
 	            ois = new ObjectInputStream(getRoverSocket().getSocket().getInputStream());
 	            String message = (String) ois.readObject();
-	            System.out.println("Client: Message from Server - " + message.toUpperCase());
+	            //System.out.println("Client: Message from Server - " + message.toUpperCase());
 	            //close resources
 	            ois.close();
 	            oos.close();

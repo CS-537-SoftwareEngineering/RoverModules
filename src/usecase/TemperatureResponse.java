@@ -33,5 +33,4 @@ public class TemperatureResponse {
 		return gson.toJson(this);
 	}
 	
-	
 }
