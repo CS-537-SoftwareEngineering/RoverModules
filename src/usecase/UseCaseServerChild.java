@@ -80,7 +80,7 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		//
 		checkCommand();
 		ModuleBase modBase = null;
-		if(moduleName.isEmpty() != true){
+		if(moduleName!= null && moduleName.isEmpty() != true){
 			modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(moduleName.toUpperCase()));
 		}
 		switch(ThermalCommands.valueOf(moduleCommand.toUpperCase())){
