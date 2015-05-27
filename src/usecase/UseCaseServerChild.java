@@ -60,9 +60,9 @@ public class UseCaseServerChild extends RoverClientRunnable {
 			//System.out.println(key +" " + jObject.getString(key).toString());
 	    }
 		//moduleName = data.getString("name"); // get the name from data.
-		//moduleCommand = data.getString("command");
+		//moduleCommand = data.getString("command");   
 		//sensorTemp = data.getDouble("");
-		
+		//chANGE
 		//System.out.println("Name: "+moduleName);
 		//System.out.println("Command: " + moduleCommand);
 		  
