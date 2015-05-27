@@ -14,6 +14,8 @@ import json.GlobalReader;
 
 import org.json.simple.JSONObject;
 
+import callback.CallBack;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -30,6 +32,7 @@ public class TELServer extends RoverServerRunnable {
 		
 		UHF uhf = new UHF();
 		Buffer buffer = new Buffer();
+		CallBack cb = new CallBack();
 		
 		try {
 			
@@ -76,12 +79,15 @@ public class TELServer extends RoverServerRunnable {
 					uhf.printObject();
 					System.out.println("<Server Two>");
 					System.out.println("");
+					cb.done();
 				}
 				else if(message.equalsIgnoreCase("TEL_POWER_ON")) {
 					System.out.println("Antenna power is turned ON");
+					cb.done();
 				}
 				else if(message.equalsIgnoreCase("TEL_POWER_OFF")) {
 				    System.out.println("Antenna power is turned OFF");
+				    cb.done();
 				}
 				else if(message.equalsIgnoreCase("TEL_FREQUENCY")) {
                    System.out.println("The Frequency being used for transmission is " + uhf.getFrequency()); 
@@ -132,16 +138,12 @@ public class TELServer extends RoverServerRunnable {
 					    System.err.println("Cannot transmit message to Earth at this time. Message is stored in buffer.");
 					    buffer.push(data);
 					}
-					
-					
-					
-					
-					
-					
+
 					System.out.println("Sending the data to the Earth...");
 					System.out.println("===========================================");
 					System.out.println("<End> Telecommunications server ends communication <End>");
 					System.out.println("");
+					cb.done();
 				
 				}
 				else if(message.equalsIgnoreCase("TEL_RELAY_TO_ROVER")) {
@@ -159,6 +161,7 @@ public class TELServer extends RoverServerRunnable {
                     System.out.println("===========================================");
                     System.out.println("<End> Telecommunications Server Receiving <End>");
                     System.out.println("");
+                    cb.done();
                 }
 
 			}
@@ -172,7 +175,5 @@ public class TELServer extends RoverServerRunnable {
 		} catch (Exception error) {
 			System.out.println("Server: Error: " + error.getMessage());
 		}
-
 	}
-
 }
