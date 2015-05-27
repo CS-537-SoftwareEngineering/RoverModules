@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Iterator;
 
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -22,7 +24,7 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	
 	private String moduleName;
 	
-	private String sensorTemp;
+	private double sensorTemp;
 	
 	private String responseString;
 	
@@ -53,11 +55,31 @@ public class UseCaseServerChild extends RoverClientRunnable {
       {
 	    jObject = new org.json.JSONObject(commandStr);
 	    //org.json.JSONObject data = jObject.getJSONObject("data"); // get data object
-	    Iterator<String> keys = jObject.keys();
-		//System.out.println("All keys from JSON String:");
-		while (keys.hasNext()){
-			String key = keys.next();
-			//System.out.println(key +" " + jObject.getString(key).toString());
+	    Object json = new org.json.JSONTokener(commandStr).nextValue();
+	    if (json instanceof JSONObject){
+	    	//org.json.JSONObject data = jObject.getJSONObject("data");
+		    Iterator<String> keys = jObject.keys();
+		    //System.out.println("All keys from JSON String:");
+			while (keys.hasNext()){
+				String key = keys.next().toUpperCase();
+				switch(ThermalKeys.valueOf(key)){
+				case NAME:
+					moduleName = jObject.getString("name").toUpperCase();
+					break;
+					
+				case COMMAND:
+					moduleCommand = jObject.getString("command").toUpperCase();
+					break;
+					
+				case TEMPERATURE:
+					sensorTemp = jObject.getDouble("temperature");
+					break;
+					
+				default:
+					System.out.println("KEY: "+key +"NOT CAPTURED");
+				}
+				//System.out.println(key +" " + jObject.getString(key).toString());
+		    }			
 	    }
 		//moduleName = data.getString("name"); // get the name from data.
 		//moduleCommand = data.getString("command");   
@@ -84,21 +106,21 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		if(moduleName!= null && moduleName.isEmpty() != true){
 			modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(moduleName.toUpperCase()));
 		}
-		if(moduleCommand != null){
-			switch(ThermalCommands.valueOf(moduleCommand.toUpperCase())){
+		if(moduleCommand != null && moduleCommand.isEmpty() != true){
+			switch(ThermalCommands.valueOf(moduleCommand)){
 				case CURRENT_TEMPERATURE:
 					responseString = ThermalDataSector.getTempDataSector().getOutsideTemperature();
-					System.out.println("CURRENT_TEMPERATURE" +responseString);
+					//System.out.println("CURRENT_TEMPERATURE" +responseString);
 					break;
 				case OUTSIDE_EMPERATURE:
 					modBase.getCurrTemp();
 					TemperatureResponse tempResp =  new TemperatureResponse(moduleName, modBase.getCurrTemp());
 					responseString = tempResp.jsonify();
-					System.out.println("OUTSIDE_EMPERATURE" +responseString);
+					//System.out.println("OUTSIDE_EMPERATURE" +responseString);
 					break;
 				case CURRENT_TEMPERATURES:
 					responseString = ThermalDataSector.getTempDataSector().getModTemps();
-					System.out.println("CURRENT_TEMPERATURES" +responseString);
+					//System.out.println("CURRENT_TEMPERATURES" +responseString);
 					break;
 				default:
 					break;

@@ -1,5 +1,5 @@
 package usecase;
 
 public enum ThermalKeys {
-	NAME, COMMAND;
+	NAME, COMMAND, TEMPERATURE;
 }
