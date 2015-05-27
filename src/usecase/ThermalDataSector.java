@@ -40,7 +40,7 @@ public class ThermalDataSector {
 	 */
 	private Map<Integer, Float> tempChart;
 
-	public ThermalDataSector() {
+	private ThermalDataSector() {
 
 		setModuleMap(new HashMap<Modules, ModuleBase>());
 		populateModuleMap();

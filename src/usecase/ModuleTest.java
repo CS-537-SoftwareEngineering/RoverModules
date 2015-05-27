@@ -5,7 +5,7 @@ public class ModuleTest
 
   public static void main(String[] args)
   {
-	ThermalDataSector termal = new ThermalDataSector();
+	//ThermalDataSector termal = new ThermalDataSector();
 
   }
 

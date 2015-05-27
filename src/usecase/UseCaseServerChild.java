@@ -54,10 +54,10 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	    jObject = new org.json.JSONObject(commandStr);
 	    //org.json.JSONObject data = jObject.getJSONObject("data"); // get data object
 	    Iterator<String> keys = jObject.keys();
-		System.out.println("All keys from JSON String:");
+		//System.out.println("All keys from JSON String:");
 		while (keys.hasNext()){
 			String key = keys.next();
-	      System.out.println(key +" " + jObject.getString(key).toString());
+			//System.out.println(key +" " + jObject.getString(key).toString());
 	    }
 		//moduleName = data.getString("name"); // get the name from data.
 		//moduleCommand = data.getString("command");
@@ -73,37 +73,43 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	  
 	  	  
 	}
-	public void processCommand(){
+	public boolean processCommand(){
 		//
 		//
 		//
 		//
+		boolean bResult = false;
 		checkCommand();
 		ModuleBase modBase = null;
 		if(moduleName!= null && moduleName.isEmpty() != true){
 			modBase = ThermalDataSector.getTempDataSector().getModule(Modules.valueOf(moduleName.toUpperCase()));
 		}
-		switch(ThermalCommands.valueOf(moduleCommand.toUpperCase())){
-			case CURRENT_TEMPERATURE:
-				responseString = ThermalDataSector.getTempDataSector().getOutsideTemperature();
-				System.out.println("CURRENT_TEMPERATURE" +responseString);
-				break;
-			case OUTSIDE_EMPERATURE:
-				modBase.getCurrTemp();
-				TemperatureResponse tempResp =  new TemperatureResponse(moduleName, modBase.getCurrTemp());
-				responseString = tempResp.jsonify();
-				System.out.println("OUTSIDE_EMPERATURE" +responseString);
-				break;
-			case CURRENT_TEMPERATURES:
-				responseString = ThermalDataSector.getTempDataSector().getModTemps();
-				System.out.println("CURRENT_TEMPERATURES" +responseString);
-				break;
-			default:
-				break;
+		if(moduleCommand != null){
+			switch(ThermalCommands.valueOf(moduleCommand.toUpperCase())){
+				case CURRENT_TEMPERATURE:
+					responseString = ThermalDataSector.getTempDataSector().getOutsideTemperature();
+					System.out.println("CURRENT_TEMPERATURE" +responseString);
+					break;
+				case OUTSIDE_EMPERATURE:
+					modBase.getCurrTemp();
+					TemperatureResponse tempResp =  new TemperatureResponse(moduleName, modBase.getCurrTemp());
+					responseString = tempResp.jsonify();
+					System.out.println("OUTSIDE_EMPERATURE" +responseString);
+					break;
+				case CURRENT_TEMPERATURES:
+					responseString = ThermalDataSector.getTempDataSector().getModTemps();
+					System.out.println("CURRENT_TEMPERATURES" +responseString);
+					break;
+				default:
+					break;
+			}
+		}
+		else{
+			bResult = true;
 		}
 		ThermalDataSector.getTempDataSector().getModTemps();
 		//
-		
+		return bResult;
 	}	
 	
 
@@ -118,14 +124,16 @@ public class UseCaseServerChild extends RoverClientRunnable {
 	        //convert ObjectInputStream object to String
 	        commandStr = (String) ois.readObject();
 	        System.out.println("Server: Message Received from Client - " + commandStr.toUpperCase());
-	        processCommand();
-	        //create ObjectOutputStream object
-	        ObjectOutputStream oos = new ObjectOutputStream(this.getSocket().getOutputStream());
-	        //write object to Socket
-	        oos.writeObject(responseString);
-	        //close resources	        
+	        if(processCommand() != true){
+		        //create ObjectOutputStream object
+		        ObjectOutputStream oos = new ObjectOutputStream(this.getSocket().getOutputStream());
+		        //write object to Socket
+		        oos.writeObject(responseString);
+		        //close resources
+		        oos.close();
+	        }
 	        ois.close();
-	        oos.close();
+	        
 	        //getRoverServerSocket().closeSocket();
 	        //terminate the server if client sends exit request
 	        socket.close();
