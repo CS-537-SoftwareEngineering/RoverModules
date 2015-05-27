@@ -155,11 +155,12 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		        oos.close();
 	        }
 	        else{
+	        	//System.out.println(Modules.valueOf(moduleName.toUpperCase()));
 				ModuleBase moduleBase = ThermalDataSector.getTempDataSector()
 						.getModule(Modules.valueOf(moduleName.toUpperCase()));
-
-				moduleBase.setCurrTemp(Double.parseDouble(responseString));
-				if (Double.parseDouble(responseString) <= moduleBase.getMinTemp()) {
+				System.out.println(Modules.valueOf(moduleName.toUpperCase()));
+				moduleBase.setCurrTemp(sensorTemp);
+				if (sensorTemp <= moduleBase.getMinTemp()) {
 					if (moduleBase.isHeater()
 							&& moduleBase.getHeaterState().equals(State.OFF)) {
 						initCommandClient(ThermalCommands.THRM_HEATER_ON);
@@ -167,7 +168,7 @@ public class UseCaseServerChild extends RoverClientRunnable {
 							&& moduleBase.getCoolerState().equals(State.OFF)) {
 						initCommandClient(ThermalCommands.THRM_COOLER_OFF);
 					}
-				} else if (Double.parseDouble(responseString) >= moduleBase
+				} else if (sensorTemp >= moduleBase
 						.getMaxTemp()) {
 					if (moduleBase.isHeater()
 							&& moduleBase.getHeaterState().equals(State.ON)) {

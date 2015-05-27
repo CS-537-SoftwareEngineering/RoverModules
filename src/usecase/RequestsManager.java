@@ -32,11 +32,23 @@ public class RequestsManager {
 	
 	private void initRequestsManager() throws UnknownHostException{
 		setModuleNames();
+		int toggle = -2; 
 		for (Modules mod : moduleNames) {
-			DeviceSimulator device = new DeviceSimulator(port, null, mod);
+			if(toggle < 0){
+				//CURRENT_TEMPERATURES
+				DeviceSimulator device = new DeviceSimulator(port, null, mod, toggle++);
+				Thread client = RoverThreadHandler.getRoverThreadHandler().getNewThread(device);
+				client.start();
+				//ATMSPHERIC/OUTSIDE_TEMPERATURES
+				DeviceSimulator device2 = new DeviceSimulator(port, null, mod, toggle++);
+				Thread client2 = RoverThreadHandler.getRoverThreadHandler().getNewThread(device2);
+				client2.start();
+			}
+			DeviceSimulator device = new DeviceSimulator(port, null, mod, toggle);
 			Thread client = RoverThreadHandler.getRoverThreadHandler().getNewThread(device);
 			client.start();
 		}
+
 	}
 	
 	public static void setModuleNames(){

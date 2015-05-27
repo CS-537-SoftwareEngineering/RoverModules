@@ -15,11 +15,61 @@ public class DeviceSimulator extends RoverClientRunnable {
 	ThermalCommands thermalCommand;
 	CommandData command;
 	public int waitTime = 3000;
+	private int toggle;
 	
-	public DeviceSimulator(int port, InetAddress host, Modules id)
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public Modules getId() {
+		return id;
+	}
+
+	public void setId(Modules id) {
+		this.id = id;
+	}
+
+	public ThermalCommands getThermalCommand() {
+		return thermalCommand;
+	}
+
+	public void setThermalCommand(ThermalCommands thermalCommand) {
+		this.thermalCommand = thermalCommand;
+	}
+
+	public CommandData getCommand() {
+		return command;
+	}
+
+	public void setCommand(CommandData command) {
+		this.command = command;
+	}
+
+	public int getWaitTime() {
+		return waitTime;
+	}
+
+	public void setWaitTime(int waitTime) {
+		this.waitTime = waitTime;
+	}
+
+	public int getToggle() {
+		return toggle;
+	}
+
+	public void setToggle(int toggle) {
+		this.toggle = toggle;
+	}
+
+	public DeviceSimulator(int port, InetAddress host, Modules id, int toggle)
 			throws UnknownHostException {
 		super(port, host);
 		this.id = id;
+		setToggle(toggle);
 		startUp();
 	}
 
@@ -68,17 +118,14 @@ public class DeviceSimulator extends RoverClientRunnable {
 	}
 	
 	public ThermalCommands getRandomThermalCommand(){
-		double cmd = (float)Math.random();
+		
 		ThermalCommands thrmCmd = null;
-		if(cmd >= 0 && cmd < 0.25){
+		if(toggle == 0)
 			thrmCmd =  ThermalCommands.CURRENT_TEMPERATURE;
-		}else if(cmd >= 0.25 && cmd < 0.5){
+		else if(toggle == -1)
 			thrmCmd =  ThermalCommands.OUTSIDE_TEMPERATURE;
-		}else if(cmd >= 0.5 && cmd < 0.75){
+		else 
 			thrmCmd = ThermalCommands.CURRENT_TEMPERATURES;
-		}else if(cmd >= 0.75 && cmd <= 1){
-			thrmCmd = ThermalCommands.PROCESS_TEMPERATURE;
-		}
 		
 		return thrmCmd;
 		

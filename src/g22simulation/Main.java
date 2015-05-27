@@ -19,8 +19,8 @@ public class Main {
 
 			server.start();
 			
-			//SensorManager.getSensorManager();
-			RequestsManager.getRequestsManager();
+			SensorManager.getSensorManager();
+			//RequestsManager.getRequestsManager();
 			
 
 		} catch (IOException e) {
