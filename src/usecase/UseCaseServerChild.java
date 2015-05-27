@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Iterator;
 
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import com.google.gson.GsonBuilder;
 
 import generic.RoverClientRunnable;
 import generic.RoverServerRunnable;
+import generic.RoverThreadHandler;
 
 public class UseCaseServerChild extends RoverClientRunnable {
 	
@@ -153,8 +155,31 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		        oos.close();
 	        }
 	        else{
-	        	
-	        }
+				ModuleBase moduleBase = ThermalDataSector.getTempDataSector()
+						.getModule(Modules.valueOf(moduleName.toUpperCase()));
+
+				moduleBase.setCurrTemp(Double.parseDouble(responseString));
+				if (Double.parseDouble(responseString) <= moduleBase.getMinTemp()) {
+					if (moduleBase.isHeater()
+							&& moduleBase.getHeaterState().equals(State.OFF)) {
+						initCommandClient(ThermalCommands.THRM_HEATER_ON);
+					} else if (moduleBase.isCooler()
+							&& moduleBase.getCoolerState().equals(State.OFF)) {
+						initCommandClient(ThermalCommands.THRM_COOLER_OFF);
+					}
+				} else if (Double.parseDouble(responseString) >= moduleBase
+						.getMaxTemp()) {
+					if (moduleBase.isHeater()
+							&& moduleBase.getHeaterState().equals(State.ON)) {
+						initCommandClient(ThermalCommands.THRM_HEATER_OFF);
+
+					} else if (moduleBase.isCooler()
+							&& moduleBase.getCoolerState().equals(State.OFF)) {
+						initCommandClient(ThermalCommands.THRM_COOLER_ON);
+
+					}
+				}
+			}
 	        ois.close();
 	        
 	        //getRoverServerSocket().closeSocket();
@@ -168,6 +193,23 @@ public class UseCaseServerChild extends RoverClientRunnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void initCommandClient(ThermalCommands thermalCommand){
+		CommandData commResp = new CommandData(
+				moduleName,
+				thermalCommand.toString().toUpperCase());
+		String data = commResp.jsonify();
+		ThermalCommandClient thermalCommandClient = null;
+		try {
+			thermalCommandClient = new ThermalCommandClient(0, null);
+			thermalCommandClient.setData(data);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Thread client = RoverThreadHandler.getRoverThreadHandler().getNewThread(thermalCommandClient);
+		client.start();
 	}
 	
 	public RoverServerRunnable getParent(){
