@@ -102,8 +102,9 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		ModuleBase modBase = null;
 		
 		if(moduleCommand != null && moduleCommand.isEmpty() != true){
+			System.out.println("******in server:"+moduleCommand);
 			switch(ThermalCommands.valueOf(moduleCommand)){
-				case OUTSIDE_EMPERATURE:					
+				case OUTSIDE_TEMPERATURE:					
 					responseString = ThermalDataSector.getTempDataSector().getOutsideTemperature();
 					//System.out.println("CURRENT_TEMPERATURE" +responseString);
 					break;

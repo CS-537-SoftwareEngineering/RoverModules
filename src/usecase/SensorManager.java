@@ -7,17 +7,16 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import g22simulation.Main;
 import generic.RoverThreadHandler;
 
 public class SensorManager {
-	int port = 9897;
+	int port = Main.getPort();
 	static String jsonFile;
 	static Map<Modules, ModuleBase> moduleMap;
 	public static SensorManager sensorManager;
@@ -53,7 +52,7 @@ public class SensorManager {
 		moduleMap = new HashMap<Modules, ModuleBase>();
 		
 		// JSONParser is used to parse the data
-		jsonFile = "C:\\Users\\debasish\\git\\RoverModules\\data\\device_temp.json";
+		jsonFile = System.getProperty("user.dir")+"\\data\\device_temp.json";
 		JSONParser parser = new JSONParser();
 		Object tempObjects;
 		try {

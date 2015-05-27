@@ -5,25 +5,25 @@ import com.google.gson.GsonBuilder;
 
 public class CommandData {
 	
-	String commandName;
-	String deviceName;
+	String command;
+	String name;
 	
-	CommandData(String commandName, String deviceName){
+	CommandData(String deviceName, String commandName){
 		setCommandName(commandName);
 		setDeviceName(deviceName);
 	}
 	
 	public String getCommandName() {
-		return commandName;
+		return command;
 	}
 	public void setCommandName(String commandName) {
-		this.commandName = commandName;
+		this.command = commandName;
 	}
 	public String getDeviceName() {
-		return deviceName;
+		return name;
 	}
 	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
+		this.name = deviceName;
 	}
 	
 	public String jsonify(){

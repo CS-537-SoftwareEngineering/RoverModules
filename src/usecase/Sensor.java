@@ -6,8 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class Sensor extends RoverClientRunnable {
 	Modules ID;
