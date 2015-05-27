@@ -34,6 +34,7 @@ public class ThermalCommandClient extends RoverClientRunnable{
             //CommandData commandData = new CommandData("", "");
             //String wo = commandData.jsonify();
         	oos.writeObject(data);
+        	System.out.println("COMMAND TO MODULES: " +data);
             //read the server response message
             ois = new ObjectInputStream(getRoverSocket().getSocket().getInputStream());
             String message = (String) ois.readObject();

@@ -163,19 +163,23 @@ public class UseCaseServerChild extends RoverClientRunnable {
 				if (sensorTemp <= moduleBase.getMinTemp()) {
 					if (moduleBase.isHeater()
 							&& moduleBase.getHeaterState().equals(State.OFF)) {
+						System.out.println("*******************************************");
 						initCommandClient(ThermalCommands.THRM_HEATER_ON);
 					} else if (moduleBase.isCooler()
 							&& moduleBase.getCoolerState().equals(State.OFF)) {
+						System.out.println("*******************************************");
 						initCommandClient(ThermalCommands.THRM_COOLER_OFF);
 					}
 				} else if (sensorTemp >= moduleBase
 						.getMaxTemp()) {
 					if (moduleBase.isHeater()
 							&& moduleBase.getHeaterState().equals(State.ON)) {
+						System.out.println("*******************************************");
 						initCommandClient(ThermalCommands.THRM_HEATER_OFF);
 
 					} else if (moduleBase.isCooler()
 							&& moduleBase.getCoolerState().equals(State.OFF)) {
+						System.out.println("*******************************************");
 						initCommandClient(ThermalCommands.THRM_COOLER_ON);
 
 					}
@@ -203,7 +207,7 @@ public class UseCaseServerChild extends RoverClientRunnable {
 		String data = commResp.jsonify();
 		ThermalCommandClient thermalCommandClient = null;
 		try {
-			thermalCommandClient = new ThermalCommandClient(0, null);
+			thermalCommandClient = new ThermalCommandClient(9017, null);
 			thermalCommandClient.setData(data);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

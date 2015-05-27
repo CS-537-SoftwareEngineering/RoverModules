@@ -18,6 +18,8 @@ public class ModuleBase {
 	
 	State coolerState;
 	
+	int port;
+	
 	public ModuleBase(){
 		
 	}
