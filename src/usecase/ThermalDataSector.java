@@ -99,7 +99,7 @@ public class ThermalDataSector {
 
 	public static ThermalDataSector getTempDataSector() {
 
-		System.out.println("getTempDataSector() caled");
+		//System.out.println("getTempDataSector() caled");
 
 		if (tempDataSector == null) {
 			tempDataSector = new ThermalDataSector();
