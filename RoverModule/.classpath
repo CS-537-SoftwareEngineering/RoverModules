@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="g06mastcam"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/ansab/Downloads/GenericFramework-master/JSON Example/libs/gson-2.3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/ansab/Downloads/GenericFramework-master/JSON Example/libs/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/ansab/Documents/Git Projects/CS537/RoverModules/RoverModule/libs/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/ansab/Documents/Git Projects/CS537/RoverModules/RoverModule/libs/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
