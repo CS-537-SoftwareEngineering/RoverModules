@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="g17apxs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="/Users/Darsh/Desktop/java-json.jar"/>
+	<classpathentry kind="lib" path="/Users/Darsh/Downloads/jfreechart-1.0.19/jfreechart-1.0.19-demo.jar"/>
+	<classpathentry kind="lib" path="/Users/Darsh/Downloads/RoverModules-Group16_robotic_arm/ExampleCode-master/libs/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Darsh/Downloads/RoverModules-Group16_robotic_arm/ExampleCode-master/libs/json-simple-1.1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
