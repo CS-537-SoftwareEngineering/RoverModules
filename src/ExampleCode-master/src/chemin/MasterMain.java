@@ -4,46 +4,34 @@ package chemin;
 import generic.RoverThreadHandler;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 
-import power.Power_Server;
-import telecommunication.Telecommunication_Server;
-import thermal.Thermal_Server;
-import json.Constants;
-import ccu.ComputerCommand_Server;
 
 public class MasterMain {
 
 	public static void main(String[] args) {
 		
-		//Each module has its own port		
+		//Each module has its own port
+		
+		int port_chemin = 9008;
+		//int port_ccu = 9009;
+		//int port_power = 9013;
 		try {
 			
-			// create a thread for Server
-			CHEMIN_Server serverChemin = new CHEMIN_Server(Constants.PORT_CHEMIN);
+			// create a thread for module one
+			CHEMIN_Server serverChemin = new CHEMIN_Server(port_chemin);
 			Thread server_chemin = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverChemin);
 			server_chemin.start();
 		
-			ComputerCommand_Server serverCCU = new ComputerCommand_Server(Constants.PORT_CCU); 
-			Thread server_ccu = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverCCU);
-			server_ccu.start();
-		
-			CCU_SendsMessage();
+			/*ComputerCommand_Server serverccu = new ComputerCommand_Server(port_ccu); // notice port_two
+			Thread server_ccu = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverccu);
+			server_ccu.start();*/
 			
-			Power_Server serverPower = new Power_Server(Constants.PORT_POWER); 
-			Thread server_power = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverPower);
-			server_power.start();
-		
-			Thermal_Server serverThermal = new Thermal_Server(Constants.PORT_THERMAL); 
-			Thread server_thermal = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverThermal);
-			server_thermal.start();
-			
-			Telecommunication_Server serverTelecommunication = new Telecommunication_Server(Constants.PORT_TELECOMMUNICAION); 
-			Thread server_tele = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverTelecommunication);
-			server_tele.start();
-		
-			/*ComputerCommand_Client clientCCU = new ComputerCommand_Client(Constants.PORT_CCU, null); 
-			Thread client_ccu = RoverThreadHandler.getRoverThreadHandler().getNewThread(clientCCU);
+		/*	ComputerCommand_Server serverpower = new ComputerCommand_Server(port_ccu); // notice port_two
+			Thread server_power = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverpower);
+			server_power.start(); */
+					
+			/*ComputerCommand_Client clientCcu = new ComputerCommand_Client(port_ccu, null); // notice port_two
+			Thread client_ccu = RoverThreadHandler.getRoverThreadHandler().getNewThread(clientCcu);
 			client_ccu.start();*/
 			
 			
@@ -53,13 +41,6 @@ public class MasterMain {
 			e.printStackTrace();
 		}
 
-	}
-
-	private static void CCU_SendsMessage() throws UnknownHostException {
-		
-		CHEMIN_Client clientChemin = new CHEMIN_Client(Constants.PORT_CHEMIN, null,Constants.CCU,Constants.CMIN_TURN_ON); 
-		Thread client_chemin = RoverThreadHandler.getRoverThreadHandler().getNewThread(clientChemin);
-		client_chemin.start();
 	}
 
 }

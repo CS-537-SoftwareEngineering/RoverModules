@@ -1,7 +1,6 @@
 package chemin;
 
 
-
 public class Requirement {
 	private int myInteger;
 	private int power;

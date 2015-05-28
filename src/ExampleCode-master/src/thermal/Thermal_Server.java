@@ -11,9 +11,9 @@ import java.io.ObjectInputStream;
 import java.net.UnknownHostException;
 
 import json.Constants;
-import chemin.CHEMIN_Client;
-import chemin.MyClassHere;
-import chemin.Requirement;
+import chemin_.CHEMIN_Client;
+import chemin_.MyClassHere;
+import chemin_.Requirement;
 
 public class Thermal_Server extends RoverServerRunnable {
 	private static String prefix = "Thermal Server:";
