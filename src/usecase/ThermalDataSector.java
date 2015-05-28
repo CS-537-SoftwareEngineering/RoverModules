@@ -31,8 +31,8 @@ public class ThermalDataSector {
 	private static ThermalDataSector tempDataSector;
 
 	private Map<Modules, ModuleBase> moduleMap;
-	
-	private String filePath = "C:\\Users\\debasish\\git\\RoverModules\\data\\";
+
+	private String filePath = System.getProperty("user.dir") + "\\data\\";
 
 	/**
 	 * tempChart map holds 1480 temperatures indicating a sol temp in Mars key
@@ -45,10 +45,11 @@ public class ThermalDataSector {
 		setModuleMap(new HashMap<Modules, ModuleBase>());
 		populateModuleMap();
 		init();
+
 	}
 
 	private void init() {
-		initMap();
+		// initMap();
 		initTempChart();
 	}
 
@@ -62,7 +63,7 @@ public class ThermalDataSector {
 
 		this.tempChart = new TreeMap<Integer, Float>();
 
-		String jsonFile = filePath+"temperatures.json";
+		String jsonFile = filePath + "temperatures.json";
 
 		// JSONParser is used to parse the data
 		JSONParser parser = new JSONParser();
@@ -99,7 +100,7 @@ public class ThermalDataSector {
 
 	public static ThermalDataSector getTempDataSector() {
 
-		//System.out.println("getTempDataSector() caled");
+		// System.out.println("getTempDataSector() caled");
 
 		if (tempDataSector == null) {
 			tempDataSector = new ThermalDataSector();
@@ -110,10 +111,11 @@ public class ThermalDataSector {
 	public Map<Modules, ModuleBase> getModuleMap() {
 		return moduleMap;
 	}
-	
-	public ModuleBase getModule(Modules mod){
+
+	public ModuleBase getModule(Modules mod) {
 		return moduleMap.get(mod);
 	}
+
 	public String getOutsideTemperature() {
 
 		System.out.println("GetTemperature() called");
@@ -124,30 +126,32 @@ public class ThermalDataSector {
 		String currentTime = sdf.format(cal.getTime());
 		String[] currTime = currentTime.split(":");
 
-		int minutes =  Integer.parseInt(currTime[0]) * 60
+		int minutes = Integer.parseInt(currTime[0]) * 60
 				+ Integer.parseInt(currTime[1]);
-		
-		minutes=minutes-(minutes%10);
-		
-//	    System.out.println(minutes);
-		//System.out.println("Returned current temperature :"+tempChart.get(minutes));
-		
-		TemperatureResponse tempResp =  new TemperatureResponse("ATMOSPHERE", tempChart.get(minutes));
+
+		minutes = minutes - (minutes % 10);
+
+		// System.out.println(minutes);
+		// System.out.println("Returned current temperature :"+tempChart.get(minutes));
+
+		TemperatureResponse tempResp = new TemperatureResponse("ATMOSPHERE",
+				tempChart.get(minutes));
 		return tempResp.jsonify();
 
-		//return tempChart.get(minutes).toString();
+		// return tempChart.get(minutes).toString();
 
 	}
-	public String getModTemps(){
+
+	public String getModTemps() {
 		String output = "{\"list\":[";
-		for (Entry<Modules, ModuleBase> entry : moduleMap.entrySet())
-		{
-			TemperatureResponse tempResp =  new TemperatureResponse(entry.getKey().toString(), entry.getValue().getCurrTemp());
+		for (Entry<Modules, ModuleBase> entry : moduleMap.entrySet()) {
+			TemperatureResponse tempResp = new TemperatureResponse(entry
+					.getKey().toString(), entry.getValue().getCurrTemp());
 			output += tempResp.jsonify();
-		    output += ",\n";
+			output += ",\n";
 		}
 		output += "]}";
-		//System.out.println(output);
+		// System.out.println(output);
 		return output;
 	}
 
@@ -185,8 +189,8 @@ public class ThermalDataSector {
 	}
 
 	/**
-	 * This method populates the ModuleBase objects in the moduleMap object by reading the data
-	 * from the JSON file. 
+	 * This method populates the ModuleBase objects in the moduleMap object by
+	 * reading the data from the JSON file.
 	 */
 	private void populateModuleMap() {
 
@@ -194,7 +198,7 @@ public class ThermalDataSector {
 
 		this.moduleMap = new HashMap<Modules, ModuleBase>();
 
-		String jsonFile = filePath+"device_temp.json";
+		String jsonFile = filePath + "device_temp.json";
 
 		// JSONParser is used to parse the data
 		JSONParser parser = new JSONParser();
@@ -211,7 +215,7 @@ public class ThermalDataSector {
 
 				JSONObject jo = (JSONObject) o;
 
-				//System.out.println(jo.get("maxTemp").toString());
+				// System.out.println(jo.get("maxTemp").toString());
 				ModuleBase moduleBase = new ModuleBase();
 				moduleBase.setMaxTemp(new Double(Double.parseDouble(jo.get(
 						"maxTemp").toString())));
@@ -221,16 +225,20 @@ public class ThermalDataSector {
 						"heater").toString())));
 				moduleBase.setCooler(new Boolean(Boolean.parseBoolean(jo.get(
 						"cooler").toString())));
+				moduleBase.setCoolerState(State.OFF);
+				moduleBase.setHeaterState(State.OFF);
 
 				for (Modules mod : Modules.values()) {
-					if (mod.toString().equals(jo.get("name").toString().toUpperCase())) {
+					if (mod.toString().equals(
+							jo.get("name").toString().toUpperCase())) {
 						moduleMap.put(mod, moduleBase);
+					} else {
+						moduleMap.put(mod, new ModuleBase());
 					}
 
 				}
 
 			}
-
 
 		} catch (ParseException e1) {
 			e1.printStackTrace();
@@ -239,7 +247,9 @@ public class ThermalDataSector {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("The moduleBase in moduleMap is populated. moduleMap size is: " + moduleMap.size());
+		System.out
+				.println("The moduleBase in moduleMap is populated. moduleMap size is: "
+						+ moduleMap.size());
 
 	}
 
