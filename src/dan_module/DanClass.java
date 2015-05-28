@@ -6,7 +6,7 @@ package dan_module;
  */
 
 public class DanClass {
-	
+	   
 	static boolean DAN_PNG_ON;
 	static boolean DAN_DE_ON;
 	static double DAN_COLLECT_HYD;
