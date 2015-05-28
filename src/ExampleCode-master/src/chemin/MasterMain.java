@@ -38,7 +38,7 @@ public class MasterMain {
 			Thread server_thermal = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverThermal);
 			server_thermal.start();
 			
-			Telecommunication_Server serverTelecommunication = new Telecommunication_Server(Constants.PORT_THERMAL); 
+			Telecommunication_Server serverTelecommunication = new Telecommunication_Server(Constants.PORT_TELECOMMUNICAION); 
 			Thread server_tele = RoverThreadHandler.getRoverThreadHandler().getNewThread(serverTelecommunication);
 			server_tele.start();
 		
