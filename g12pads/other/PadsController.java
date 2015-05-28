@@ -1,4 +1,4 @@
-package pads;
+package other;
 
 public class PadsController implements Runnable{
 

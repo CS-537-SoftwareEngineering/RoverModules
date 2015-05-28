@@ -1,4 +1,4 @@
-package pads;
+package server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -7,8 +7,12 @@ import java.io.ObjectOutputStream;
 import json.Constants;
 import json.GlobalReader;
 import json.MyWriter;
+import main.Drt;
+import main.Pads;
 
 import org.json.simple.JSONObject;
+
+import other.PadsController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -66,7 +70,7 @@ public class PadsServer extends RoverServerRunnable{
 				else if(message.equalsIgnoreCase("PADS_DRILL_START")) {
 					
 //					@SuppressWarnings("unused")
-//					MyWriter JSONWriter = new MyWriter(pads, 1);
+					MyWriter JSONWriter = new MyWriter(pads, 1);
 					String jsonString = gson.toJson(pads);
 					outputToAnotherObject.writeObject(jsonString);
 					PadsController controller = new PadsController();

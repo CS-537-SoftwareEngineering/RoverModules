@@ -1,11 +1,11 @@
 package main;
 
 import generic.RoverThreadHandler;
-import pads.PadsServer;
+import server.PadsServer;
 
 import java.io.IOException;
 
-import testmodule.TestClient;
+import other.TestClientForPads;
 
 
 public class PadsMain {
@@ -21,7 +21,7 @@ public static void main(String[] args) {
 			server_12.start(); 
 			
 			//Testing client from which we are getting command to drill on the surface of the mars
-			TestClient testClient = new TestClient(port_one, null); // notice port_one
+			TestClientForPads testClient = new TestClientForPads(port_one, null); // notice port_one
 			Thread test = RoverThreadHandler.getRoverThreadHandler().getNewThread(testClient);
 			test.start();
 			

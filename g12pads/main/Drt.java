@@ -1,4 +1,4 @@
-package pads;
+package main;
 
 public class Drt {
 	

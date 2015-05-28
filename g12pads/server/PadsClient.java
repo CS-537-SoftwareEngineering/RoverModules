@@ -1,4 +1,4 @@
-package pads;
+package server;
 
 public class PadsClient {
 

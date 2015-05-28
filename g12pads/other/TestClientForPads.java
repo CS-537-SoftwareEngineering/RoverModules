@@ -1,4 +1,4 @@
-package testmodule;
+package other;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,9 +14,9 @@ import org.json.simple.parser.JSONParser;
 
 import generic.RoverClientRunnable;
 
-public class TestClient extends RoverClientRunnable{
+public class TestClientForPads extends RoverClientRunnable{
 
-	public TestClient(int port, InetAddress host) throws UnknownHostException {
+	public TestClientForPads(int port, InetAddress host) throws UnknownHostException {
 		super(port, host);
 		// TODO Auto-generated constructor stub
 	}
