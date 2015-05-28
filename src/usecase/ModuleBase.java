@@ -21,7 +21,8 @@ public class ModuleBase {
 	int port;
 	
 	public ModuleBase(){
-		
+		heaterState = heaterState.OFF;
+		coolerState = coolerState.OFF;
 	}
 
 	public double getCurrTemp() {
