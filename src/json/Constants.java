@@ -1,10 +1,5 @@
 package json;
 
-/*	
- * Created by: 	Jonathan Young
- * Date: 		May 14, 2015
- */
-
 public final class Constants {
 	public static final int ONE = 1;
 	public static final int TWO = 2;
