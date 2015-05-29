@@ -1,6 +1,6 @@
 { 
 	"Module":"power",
-	"MyPoewer":500,
+	"MyPower":500,
 	"info":[
     {
         "name": "REMS",

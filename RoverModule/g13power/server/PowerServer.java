@@ -93,7 +93,7 @@ public class PowerServer extends RoverServerRunnable{
 		    			      PowerNeed.add(z.intValue());
 		    			      
 		    			  }
-		    			 System.out.println(GroupNames+">>>"+PowerNeed);
+		    			 //System.out.println(GroupNames+">>>"+PowerNeed);
 		    			PowCalc.calc(PowerNeed,GroupNames);
 		    		} catch (ParseException e) {
 		    			System.out.println("Parse exception found.");
