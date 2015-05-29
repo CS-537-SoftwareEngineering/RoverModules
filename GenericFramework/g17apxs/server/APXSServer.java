@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import org.json.simple.JSONObject;
 
 import apxsCode.apxsSpectra;
+import callback.CallBack;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -130,10 +131,10 @@ public class APXSServer extends RoverServerRunnable{
 					System.out.println("<Server Seventeen>");
 					System.out.println("");
 					apxsSpectra apxsspectra = new apxsSpectra("Start APXS");
+					CallBack cb = new CallBack();
+					cb.done();
 				
 	            }
-	          //CallBack cb = new CallBack();
-				//cb.done();
 			}
 			System.out.println("Server: Shutting down Socket server!!");
 	        //close the ServerSocket object

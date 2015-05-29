@@ -53,31 +53,31 @@ public class apxsSpectra {
 				double min= (Double) (umean - deviation);
 				for(int j= 0; j < count; j++){
 					cps[j] = (Double) ((offset + (constCross * resp * elementWeight) + 
-							((1 - constCross) * resp * elementWeight * (Math.random()* (max-min) + min))))/1000;	
+							((1 - constCross) * resp * elementWeight * (Math.random()* (max-min) + min))));	
 				}
 			}
 			
-			double[] kev = new double[count];
+			double[] ev = new double[count];
 			double energy = 491.4;
 			
 			for(int j=0; j < count ; j++){
-				kev[j] = energy/1000;
+				ev[j] = energy;
 				energy += (Math.random() * 10.00 + 45);
 			}
 			
-			JSONArray keV = new JSONArray();
+			JSONArray eV = new JSONArray();
 			JSONArray countPerSec = new JSONArray();
 			for(int j=0; j< count; j++){
-				keV.add(kev[j]);
+				eV.add(ev[j]);
 				countPerSec.add(cps[j]);
 			}
 			
 			JSONObject obj = new JSONObject();
-			obj.put("keV", keV);
+			obj.put("eV", eV);
 			obj.put("countPerSec", countPerSec);
 			System.out.println(obj);
 			
-			MyWriter mywriter = new MyWriter(obj, 18);
+			MyWriter mywriter = new MyWriter(obj, 9017);
 			
 			final XYSeriesDemo demo = new XYSeriesDemo("XY Series Demo");
 			demo.pack();

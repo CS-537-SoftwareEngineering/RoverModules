@@ -25,12 +25,12 @@ public class XYSeriesDemo extends ApplicationFrame {
 
 		super(title);
 		final XYSeries series = new XYSeries("Count per Sec Vs keV");
-		FileReader reader= new FileReader("18.json");
+		FileReader reader= new FileReader("9017.json");
 		
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 		
-		JSONArray keV = (JSONArray) jsonObject.get("keV");
+		JSONArray keV = (JSONArray) jsonObject.get("eV");
 		Iterator i = keV.iterator();
 		
 		
@@ -38,8 +38,8 @@ public class XYSeriesDemo extends ApplicationFrame {
 		Iterator j = countPerSec.iterator();
 		
 		while (i.hasNext() && j.hasNext()){
-			Double k = (Double) i.next();
-			Double h = (Double) j.next();
+			Double k = (Double) i.next()/1000;
+			Double h = (Double) j.next()/1000;
 			
 			series.add(k, h);
 		}
