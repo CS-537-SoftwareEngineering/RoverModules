@@ -21,7 +21,7 @@ public class ControlClient extends RoverClientRunnable{
 		    Thread.sleep(1000);
 		    int sum = 0;
 		    //Send 5 messages to the Server
-	        for(int i = 100; i < 102; i++){
+	        for(int i = 100; i < 103; i++){
 	            //write to socket using ObjectOutputStream
 	            outputToAnotherObject = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
 	            
@@ -32,11 +32,15 @@ public class ControlClient extends RoverClientRunnable{
 	            //Dummy data ll be sent to the server from here //
 	             
 	            
-	            if(i == 101){
+	            if(i == 102){
 	            	outputToAnotherObject.writeObject("exit");
 	            }
+	            else if(i == 101) {
+	            	outputToAnotherObject.writeObject("MBLTY_MOVE[137,265]");
+	            	Thread.sleep(10000);
+	            }
 	            else if(i == 100) {
-	            	outputToAnotherObject.writeObject("MBLTY_MOVE_X_Y");
+	            	outputToAnotherObject.writeObject("MBLTY_MOVE[135,263]");
 	            	Thread.sleep(10000);
 	            }
 	            

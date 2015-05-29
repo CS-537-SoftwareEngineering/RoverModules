@@ -1,11 +1,17 @@
 package project.coding;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Mobility {
+	String reportFilename="Report.txt";
+	
+	
 	public class Point
 	{
 		public double x;
@@ -41,6 +47,38 @@ public class Mobility {
 	}
 	
 	
+	
+	 BufferedWriter writer = null ;
+	
+	 public void write(String message)
+	 {
+      try
+      {
+    	  writer = new BufferedWriter( new FileWriter( reportFilename));
+          
+          	writer.write(message);
+         
+
+      }
+      catch ( IOException e)
+      {
+      }
+      finally
+      {
+          try
+          {
+              if ( writer != null)
+              writer.close( );
+          }
+          catch ( IOException e)
+          {
+          }
+      	
+     
+}
+      
+	 
+	 }	
 	
 	public void turn_right(double angle)
 	{

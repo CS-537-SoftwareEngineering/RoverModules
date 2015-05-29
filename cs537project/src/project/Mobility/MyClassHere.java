@@ -1,5 +1,8 @@
 package project.Mobility;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import project.coding.Mobility;
@@ -19,8 +22,9 @@ public class MyClassHere implements Runnable {
 	private double running_time;
 	private double total_distance=0;
 	private double total_running_time;
+	
 	Mobility mobility= new Mobility();
-	Point p = mobility.new Point();
+	Point currentLocation = mobility.new Point();
 
 	public MyClassHere( ) {
 		super();
@@ -56,13 +60,13 @@ public class MyClassHere implements Runnable {
 	}
 
 
-	public Point getP() {
-		return p;
+	public Point getCurrentLocation() {
+		return currentLocation;
 	}
 
 
-	public void setP(Point p) {
-		this.p = p;
+	public void setCurrentLocation(Point p) {
+		this.currentLocation = p;
 	}
 	
  	public double getTotal_distance() {
@@ -165,7 +169,7 @@ public class MyClassHere implements Runnable {
 	}
 	
 	
-	public void getResult(){
+	/*public void getResult(){
 		
 	
 	String coordinates = "coordinates.txt";
@@ -209,51 +213,149 @@ public class MyClassHere implements Runnable {
 		 		this.setTotal_distance(total_distance);
 		 		this.setTotal_running_time(total_running_time);
 		 		this.setPower(30);
-		 	/*	state=false;
+		 		state=false;
 		 		this.setState(state);
 		 		
-		 		*/
-		 		/*if(turn_angle>0&&turn_angle<=180)
+		 		
+		 		if(turn_angle>0&&turn_angle<=180)
 		 		{
 		 			mobility.turn_right(turn_angle);
 		 			mobility.go_forward(distance);
 		 			previous_slope=slope_degree;
 		 		}
-		 		*/
-		 		/*else
+		 		
+		 		else
 		 		{
 		 			mobility.turn_left(turn_angle);
 		 			mobility.go_forward(distance);
 		 			previous_slope=slope_degree;
-		 		}*/
+		 		}
 			}
 			prepoint=point;
 		}
 
-	}
+	}*/
+	public void getResult(double pre_x,double pre_y,double x, double y){
+		
+		
+		
+		ArrayList<Point> points = new ArrayList<Point>();
+		
+		
+			
+			Mobility mob=new Mobility();
+			
+			Point p= mobility.new Point();
+			p.x=x;
+			p.y=y;
+			points.add(p);
+			
+			Point prepoint = mobility.new Point();
+			prepoint.x=pre_x;
+			prepoint.y=pre_y;
+			state=true;
+			for(Point point : points)
+			{
+				if (prepoint!=null)
+				{
+					step++;
+					 distance= Math.sqrt(Math.pow((point.x-prepoint.x),2)+Math.pow((point.y-prepoint.y),2));
+					 running_time = distance/speed;
+					 
+			 		 slope= (point.y-prepoint.y)/(point.x-prepoint.x);
+			 		slope_degree = Math.toDegrees(slope);
+			 		
+			 		turn_angle= (slope_degree-previous_slope);
+			 		total_distance=total_distance+distance;
+			 		total_running_time=total_distance/speed;
+			 		
+			 		if(turn_angle<180)
+			 			commandperforms("MBLTY_TURNRIGHT");
+			 			
+			 		else
+			 			commandperforms("MBLTY_TURNLEFT");
+			 			
+//			 		System.out.println("STEP "+step+" :" );
+			 		System.out.println("distance="+distance);
+			 		System.out.println("slope="+slope);
+			 		System.out.println("turn_angle="+turn_angle);
+			 		System.out.println("Running Time="+ running_time);
+			 		System.out.println("Total distance="+total_distance);
+			 		System.out.println("Total Running Time="+total_running_time);
+			 		
+			 		this.setState(state);
+			 		this.setDistance(distance);
+			 		this.setSlope(slope);
+			 		this.setSlope_degree(slope_degree);
+			 		this.setTurn_angle(turn_angle);
+			 		this.setTotal_distance(total_distance);
+			 		this.setTotal_running_time(total_running_time);
+			 		this.setPower(30);
+			 		this.setCurrentLocation(point);
+			 		String message=null;
+	 		 		if (turn_angle==0)
+	 		 		{
+	 		 			if (message!=null)
+	 	 		 			message=message+" Turn "+turn_angle+ " degree "+" Move forward "+distance+ " meters ";
+	 	 		 			else
+	 	 		 				message=" Turn "+turn_angle+ " degree "+" Move forward "+distance+ " meters ";
+	 		 		}
+	 		 		if(turn_angle>0&&turn_angle<=180)
+	 		 		{
+	 		 			mobility.turn_right(turn_angle);
+	 		 			mobility.go_forward(distance);
+	 		 			if (message!=null)
+	 		 			message=message+"Turn right "+turn_angle+ " degree "+" Move forward "+distance+ " meters ";
+	 		 			else
+	 		 				message=" Turn right "+turn_angle+ " degree "+" Move forward "+distance+ " meters ";
+	 		 		}
+	 		 		else if (turn_angle>180)
+	 		 		{
+	 		 			mobility.turn_left(turn_angle);
+	 		 			mobility.go_forward(distance);
+	 		 			if (message!=null)
+	 		 			message=message+" Turn left "+turn_angle + " degree "+" Move forward "+distance+ " meters ";
+	 		 			else
+	 		 				message=" Turn left "+turn_angle+ " degree "+" Move forward "+distance+ " meters ";
+	 		 		}
+	 		 		mob.write(message);
+			 	/*	state=false;
+			 		this.setState(state);
+			 		
+			 		*/
+			 		/*if(turn_angle>0&&turn_angle<=180)
+			 		{
+			 			mobility.turn_right(turn_angle);
+			 			mobility.go_forward(distance);
+			 			previous_slope=slope_degree;
+			 		}
+			 		*/
+			 		/*else
+			 		{
+			 			mobility.turn_left(turn_angle);
+			 			mobility.go_forward(distance);
+			 			previous_slope=slope_degree;
+			 		}*/
+			 	
+
+				}
+				prepoint=point;
+			}
+
+		}
+
 
 
 	@Override
 	public void run() {
 		
 		this.setPower(power);
-		try {
-			Thread.sleep(5000);
-	
 		mobility.turn_left(turn_angle);
-		Thread.sleep(5000);
 		mobility.turn_right(turn_angle);
-		Thread.sleep(5000);
 		mobility.go_forward(distance);
-		Thread.sleep(5000);
 		this.setTotal_distance(total_distance);
-		Thread.sleep(5000);
-		this.setPower(0);
 		// TODO Auto-generated method stub
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 	}
 	
@@ -266,10 +368,11 @@ public class MyClassHere implements Runnable {
 			
 		}else{
 			
-			getResult();
+			//getResult();
 			 if((command.equals("MBLTY_TURNRIGHT") && turn_angle>0 && turn_angle<=180)){
 			
 	 			mobility.turn_right(turn_angle);
+	 			mobility.go_forward(distance);
 	 			//mobility.go_forward(distance);
 	 			previous_slope=slope_degree;
 	 			this.setPrevious_slope(previous_slope);
@@ -277,16 +380,17 @@ public class MyClassHere implements Runnable {
 		else if((command.equals("MBLTY_TURNLEFT") && turn_angle<0 && turn_angle>=180)){
 			
 			mobility.turn_left(turn_angle);
+			mobility.go_forward(distance);
  			//mobility.go_forward(distance);
  			previous_slope=slope_degree;
  			this.setPrevious_slope(previous_slope);
 	}
-		else if(command.equals("MBLTY_FWRD")){
+		/*else if(command.equals("MBLTY_FWRD")){
 			
 		//	mobility.turn_left(turn_angle);
  			mobility.go_forward(distance);
  		//	previous_slope=slope_degree;
-	}
+	}*/
 		else if(command.equals("MBLTY_TOTALDISTANCE"))
 		{
 			this.setTotal_distance(total_distance);

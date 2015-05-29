@@ -11,6 +11,8 @@ import project.json.MyWriter;
 
 public class MobilityServer extends RoverServerRunnable {
 
+	double pre_x=133 ;
+	double pre_y=261;
 	public MobilityServer(int port) throws IOException {
 		super(port);
 	}
@@ -74,22 +76,27 @@ public class MobilityServer extends RoverServerRunnable {
 					break;
 				
 				
-				else if(message.equalsIgnoreCase("MBLTY_MOVE_X_Y")) {
-					
-				
-					mobilityClass.commandperforms("MBLTY_POW_ON");
+				else if(message.contains("MBLTY_MOVE")) {
+					String [] msg = message.split("\\[");
+					String newMessage = msg[1].replace("]", "");
+					/*MyClassHere controller = new MyClassHere();
+					controller.commandperforms("MBLTY_POW_ON");
 					Thread.sleep(5000);			
-					mobilityClass.commandperforms("MBLTY_TURNRIGHT");
+					controller.commandperforms("MBLTY_TURNRIGHT");
 					Thread.sleep(5000);			
-					mobilityClass.commandperforms("MBLTY_TURNLEFT");
+					controller.commandperforms("MBLTY_TURNLEFT");
 					Thread.sleep(5000);			
-					mobilityClass.commandperforms("MBLTY_FWRD");
-					Thread.sleep(5000);
-					mobilityClass.commandperforms("MBLTY_TOTALDISTANCE");
-					Thread.sleep(5000);
-					mobilityClass.commandperforms("MBLTY_POW_OFF");
-					
-					mobilityClass.getResult();
+					controller.commandperforms("MBLTY_FWRD");
+					Thread.sleep(5000);*/
+					//mobilityClass.getResult();
+					String [] msg1 = newMessage.split(",");
+					String m1=msg1[0];
+					String m2=msg1[1];
+					Double x= Double.parseDouble(m1);
+					Double y= Double.parseDouble(m2);
+					mobilityClass.getResult(pre_x,pre_y,x,y);
+					pre_x= x;
+					pre_y= y;
 						@SuppressWarnings("unused")
 					MyWriter JSONWriter = new MyWriter(mobilityClass, Constants.TWO);
 					System.out.println("");

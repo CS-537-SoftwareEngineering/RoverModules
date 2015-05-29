@@ -1,19 +1,21 @@
 {
-  "step": 18,
-  "distance": 1.1092339699089655,
-  "slope": 2.083333333333316,
-  "slope_degree": 119.36620731892053,
-  "turn_angle": 0.0,
-  "previous_slope": 119.36620731892053,
+  "step": 1,
+  "distance": 2.8284271247461903,
+  "slope": 1.0,
+  "slope_degree": 57.29577951308232,
+  "turn_angle": 57.29577951308232,
+  "previous_slope": 57.29577951308232,
   "power": 2.07,
   "state": true,
   "speed": 30.0,
-  "running_time": 0.03697446566363218,
-  "total_distance": 1357.837510982632,
-  "total_running_time": 45.26125036608774,
-  "mobility": {},
-  "p": {
-    "x": 0.0,
-    "y": 0.0
+  "running_time": 0.09428090415820635,
+  "total_distance": 2.8284271247461903,
+  "total_running_time": 0.09428090415820635,
+  "mobility": {
+    "reportFilename": "Report.txt"
+  },
+  "currentLocation": {
+    "x": 135.0,
+    "y": 263.0
   }
 }
