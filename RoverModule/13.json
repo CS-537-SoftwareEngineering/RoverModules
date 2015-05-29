@@ -1,0 +1,39 @@
+{ 
+	"Module":"power",
+	"MyPoewer":500,
+	"info":[
+    {
+        "name": "REMS",
+        "power": 50
+    },
+    {
+        "name": "Attitude and Control",
+        "power": 60
+     },
+    {
+        "name": "MastCam",
+        "power": 20
+     },
+    {
+        "name": "NavCam",
+        "power":40
+     },
+    {
+        "name": "ChemCam",
+        "power": 60
+     },
+    {
+        "name": "CheMin",
+        "power": 200
+     },
+    {
+        "name": "APXS",
+        "power": 60
+     },
+    {
+        "name": "Mobility",
+        "power": 80
+     }
+	
+]
+}
