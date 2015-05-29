@@ -7,12 +7,12 @@ import java.io.ObjectOutputStream;
 import json.Constants;
 import json.GlobalReader;
 import json.MyWriter;
-import main.Drt;
 import main.Pads;
 
 import org.json.simple.JSONObject;
 
 import other.PadsController;
+import callback.CallBack;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,9 +31,9 @@ public class PadsServer extends RoverServerRunnable{
 		// TODO Auto-generated method stub
 		
 		Pads pads = new Pads();
+		CallBack cb = new CallBack();
 		
 		String objectToClean = "CLEAN_SURFACE"; 
-		Drt drt = new Drt(objectToClean); 
 		
 		try {
 			while (true) {
@@ -54,9 +54,6 @@ public class PadsServer extends RoverServerRunnable{
 				ObjectOutputStream outputToAnotherObject = new ObjectOutputStream(getRoverServerSocket().getSocket().getOutputStream());
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
 				
-				
-				
-				
 				if (message.equalsIgnoreCase("exit")){
 					break;
 					}
@@ -67,47 +64,68 @@ public class PadsServer extends RoverServerRunnable{
 				
 				//All commands are written in PadsController.java class
 				
-				else if(message.equalsIgnoreCase("PADS_DRILL_START")) {
-					
-//					@SuppressWarnings("unused")
-					MyWriter JSONWriter = new MyWriter(pads, 1);
-					String jsonString = gson.toJson(pads);
+				else if(message.equalsIgnoreCase("DRILL_STATUS")) {
+					PadsController controller = new PadsController();
+					pads = controller.action("PADS_DRILL_STATUS");
+					String jsonString = gson.toJson(pads); 
 					outputToAnotherObject.writeObject(jsonString);
+					
+					Thread.sleep(3000); 
+											
+				}else if(message.equalsIgnoreCase("DRT_STATUS")) {
+					PadsController controller = new PadsController();
+					pads = controller.action("PADS_DRT_STATUS");
+					String jsonString = gson.toJson(pads); 
+					outputToAnotherObject.writeObject(jsonString);
+					
+					Thread.sleep(3000); 
+											
+				}
+				else if(message.equalsIgnoreCase("DRILL_START")) {
+					
 					PadsController controller = new PadsController();
 					controller.action("PADS_SET_POSITION");
 					Thread.sleep(5000);
 					controller.action("PADS_DRILL_START");
 					Thread.sleep(5000);
-					controller.action("PADS_DRILL_STOP");
-					Thread.sleep(5000);
+					pads = controller.action("PADS_DRILL_STOP");
+					
+					MyWriter JSONWriter = new MyWriter(pads, Constants.TWELVE); 
+					String jsonString = gson.toJson(pads); 
+					outputToAnotherObject.writeObject(jsonString);
+					
+					Thread.sleep(5000); 
 											
 				}
-				else if(message.equalsIgnoreCase("PADS_DRT_START")) {
-					String jsonString = gson.toJson(drt);
-					outputToAnotherObject.writeObject(jsonString);
+				else if(message.equalsIgnoreCase("DRT_START")) {
 					PadsController controller = new PadsController();
 					Thread.sleep(3000);
 					controller.action("PADS_DRT_SET_MODE");
 					Thread.sleep(5000);
 					controller.action("PADS_DRT_START");
 					Thread.sleep(5000);
-					controller.action("PADS_DRT_STOP");
+					pads = controller.action("PADS_DRT_STOP");
+					
+//					MyWriter JSONWriter = new MyWriter(pads, Constants.TWELVE); 
+					String jsonString = gson.toJson(pads); 
+					outputToAnotherObject.writeObject(jsonString);
 					Thread.sleep(5000);
 					
-				}else if(message.equalsIgnoreCase("PADS_REPLACE_BITS")) {
-					String jsonString = gson.toJson(pads);
-					outputToAnotherObject.writeObject(jsonString);
+				}else if(message.equalsIgnoreCase("BITS_STUCK")) {
 					PadsController controller = new PadsController();
 					Thread.sleep(3000);
-					controller.action("PADS_REPLACE_BITS");
+					controller.action("PADS_DIS_ENGAGE_BITS");
 					Thread.sleep(5000);
+					pads = controller.action("PADS_LOAD_BITS");
+					String jsonString = gson.toJson(pads); 
+					outputToAnotherObject.writeObject(jsonString);
 					
 				}
 				
 				inputFromAnotherObject.close();
 				outputToAnotherObject.close();
 			}
-			
+			cb.done();
 			System.out.println("Server: Shutting down Socket server 1!!");
 			closeAll();
 		} catch (IOException e) {
