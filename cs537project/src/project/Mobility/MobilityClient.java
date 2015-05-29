@@ -31,18 +31,38 @@ public class MobilityClient extends RoverClientRunnable{
 		    Thread.sleep(7000);
 	 		
 	 		int sum = 0;
-	 		  for(int i = 100; i < 105; i++){
+	 		  for(int i = 100; i < 103; i++){
 		            //write to socket using ObjectOutputStream
 		            outputToAnotherObject = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
 		            
 		            System.out.println("=================================================");
-		            System.out.println("Mobility Client: Sending request to Attitude Server");
+		            System.out.println("Mobility Client: Sending request to Power Server");
 		            System.out.println("=================================================");
 		            
 		            //Dummy data ll be sent to the server from here //
-		             
+		            if(i == 102){
+		            	outputToAnotherObject.writeObject("exit");
+		            }
 		            
-		            String fileName = "C:/Users/Saloni/workspace/cs537Project/reading1.txt";
+		           
+		            else if(i == 100) {
+		            	outputToAnotherObject.writeObject("POWER_CAL_2.07");
+		            	
+		            }
+		            
+		            else if(i==101)
+		            {
+		            	outputToAnotherObject.writeObject("PRINT_POWER");
+		            }
+		            
+		        /*    else if(i==102)
+		            {
+		            	outputToAnotherObject.writeObject("MODULE_CONTROL_GET");
+
+		            }*/
+	 		  }
+		}
+		         /*   String fileName = "reading1.txt";
 
 		            // This will reference one line at a time
 		            String line = null;
@@ -75,12 +95,11 @@ public class MobilityClient extends RoverClientRunnable{
 	        catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			catch (Exception error) {
-				System.out.println("NavCam Client: Error:" + error.getMessage());
+				System.out.println("MOBILITY Client: Error:" + error.getMessage());
 			}
-			
-		}
+	
 	            
-	       
+	}	       
 }

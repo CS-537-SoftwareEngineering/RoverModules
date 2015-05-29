@@ -1,0 +1,19 @@
+{
+  "step": 3,
+  "distance": 1.1092339699089655,
+  "slope": 2.083333333333316,
+  "slope_degree": 119.36620731892053,
+  "turn_angle": 119.36620731892053,
+  "previous_slope": 0.0,
+  "power": 2.07,
+  "state": true,
+  "speed": 30.0,
+  "running_time": 0.03697446566363218,
+  "total_distance": 226.30625183043867,
+  "total_running_time": 7.543541727681289,
+  "mobility": {},
+  "p": {
+    "x": 0.0,
+    "y": 0.0
+  }
+}

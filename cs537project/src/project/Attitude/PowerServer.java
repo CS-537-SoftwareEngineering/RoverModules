@@ -12,9 +12,9 @@ import project.coding.Mobility;
 import project.coding.Mobility.Point;
 import project.generic.RoverServerRunnable;
 
-public class AttitudeServer extends RoverServerRunnable {
+public class PowerServer extends RoverServerRunnable {
 
-	public AttitudeServer(int port) throws IOException {
+	public PowerServer(int port) throws IOException {
 		super(port);
 	}
 

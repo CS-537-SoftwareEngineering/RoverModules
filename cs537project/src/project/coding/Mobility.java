@@ -44,15 +44,15 @@ public class Mobility {
 	
 	public void turn_right(double angle)
 	{
-		// System.out.println("Turn " +angle+ " degree towards Right");
+		 System.out.println("Turn_Right" +angle);
 	}
 	public void turn_left(double angle)
 	{
-		//System.out.println("Turn " +angle+ " degree towards Left");
+		System.out.println("Turn_Left" +angle);
 	}
 	public void go_forward(double distance)
 	{
-		//System.out.println("move forward " +distance+ " meters");
+		System.out.println("move_Forward " +distance+ " meters");
 	}
  	
 }

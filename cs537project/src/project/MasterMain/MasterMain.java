@@ -1,12 +1,13 @@
 package project.MasterMain;
 
-import project.Attitude.AttitudeClient;
-import project.Attitude.AttitudeServer;
+import project.Power.PowerClient;
+import project.Power.PowerServer;
+import project.Control.ControlClient;
+import project.Control.ControlServer;
 import project.Mobility.MobilityClient;
 import project.Mobility.MobilityServer;
-import project.NavCam.NavCamClient;
-import project.NavCam.NavCamServer;
 import project.generic.RoverThreadHandler;
+import project.json.Constants;
 
 import java.io.IOException;
 
@@ -15,40 +16,40 @@ public class MasterMain {
 	public static void main(String[] args) {
 		
 		//Each module has its own port
-		int port_one = 9897;
-		int port_two = 9898;
-		int port_three = 9896;
-		int port_four = 9895;
+		int port_one = Constants.PORT_ONE;
+		int port_two = Constants.PORT_TWO;
+		int port_three=Constants.PORT_THREE;
+		int port_four=Constants.PORT_FOUR;
+		
 		
 		try {
 			
+			PowerServer serverone = new PowerServer(port_one);
+			Thread server_01 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) serverone);
 			
-			NavCamServer serverOne = new NavCamServer(port_one);
-			Thread server_1 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) serverOne);
+			MobilityServer servertwo = new MobilityServer(port_two);
+			Thread server_02 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) servertwo);
+			
+			
+			ControlServer serverthree = new ControlServer(port_three);
+			Thread server_03 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) serverthree);
 		
-			MobilityServer serverTwo = new MobilityServer(port_two);
-			Thread server_2 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) serverTwo);
+			server_01.start();
+			server_02.start();
+			server_03.start();
 			
-			AttitudeServer serverThree = new AttitudeServer(port_three);
-			Thread server_3 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) serverThree);
-			
-			//server_1.start();
-			server_2.start();
-			server_3.start();
+			PowerClient clientone = new PowerClient(port_four, null);
+			Thread client_01 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) clientone);
 		
-			NavCamClient clientOne = new NavCamClient(port_two, null); // notice port_two
-			Thread client_1 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) clientOne);
+			MobilityClient clienttwo = new MobilityClient(port_one, null); // notice port_one
+			Thread client_02 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) clienttwo);
 			
-			MobilityClient clientTwo = new MobilityClient(port_three, null); // notice port_one
-			Thread client_2 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) clientTwo);
-			
-			AttitudeClient clientThree = new AttitudeClient(port_four, null);
-			Thread client_3 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) clientThree);
+//			client_01.start();
+			client_02.start();
+			ControlClient clientthree = new ControlClient(port_two, null); // notice port_two
+			Thread client_03 = RoverThreadHandler.getRoverThreadHandler().getNewThread((Runnable) clientthree);
 		
-			client_1.start();
-			client_3.start();
-			client_2.start();
-			
+			client_03.start();
 			} 
 		
 		catch (IOException e) {

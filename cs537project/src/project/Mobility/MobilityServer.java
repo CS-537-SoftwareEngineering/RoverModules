@@ -1,23 +1,20 @@
 package project.Mobility;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
-import project.coding.Mobility;
-import project.coding.Mobility.Point;
+import org.json.simple.JSONObject;
 import project.generic.RoverServerRunnable;
+import project.json.Constants;
+import project.json.GlobalReader;
+import project.json.MyWriter;
 
 public class MobilityServer extends RoverServerRunnable {
 
 	public MobilityServer(int port) throws IOException {
 		super(port);
 	}
-
+	MyClassHere mobilityClass = new MyClassHere();
 	@Override
 	public void run() {
 
@@ -33,91 +30,99 @@ public class MobilityServer extends RoverServerRunnable {
 				ObjectInputStream inputFromAnotherObject = new ObjectInputStream(getRoverServerSocket().getSocket().getInputStream());
 				
 				// convert ObjectInputStream object to String
+			
 				String message = (String) inputFromAnotherObject.readObject();
-				String[] parts = message.split("-");
+			/*	String[] parts = message.split("-");
 				String part1 = parts[0];
 				String part2 = parts[1];
-				
+			*/	
 				System.out.println("MOBILITY Server: Message Received from CONTROL CLIENT - "+ message.toUpperCase());
 				
 			
 				// Our computation is suppose to be done here ..
-				String content = null ;
-				content = part2;
+				/*String content = null ;
+				content = message;
 				
-				File file = new File("C:/Users/Saloni/workspace/cs537Project/reading.txt");
-				
+				File file = new File("coordinates.txt");
+				System.out.println("Here");
+				// if file doesnt exists, then create it
 				if (!file.exists()) {
 					file.createNewFile();
 				}
 				
 					FileWriter fw = new FileWriter(file.getAbsoluteFile());
 					BufferedWriter bw = new BufferedWriter(fw);
-					bw.write(part2);
-					bw.close();
-				
+					bw.write(content);
+					bw.close();*/
+				Thread.sleep(15000);
+				System.out.println("Done");
 				//System.out.println("Done");
 				
 				
-				String coordinates = "C:/Users/Saloni/workspace/cs537Project/reading.txt";
-		 		ArrayList<Point> points = new ArrayList<Point>();
-
-		 		Mobility mobility= new Mobility();
-		 		Point p = mobility.new Point();
-		 		
-		 		p.readPoints(coordinates, points);
-		 		
-		 		Point prepoint = mobility.new Point();
-		 		int i=0;
-		 	
-		 		for(Point point : points)
-		 		{
-		 			if (prepoint!=null)
-		 			{
-		 				i++;
-		 				double distance= Math.sqrt(Math.pow((point.x-prepoint.x),2)+Math.pow((point.y-prepoint.y),2));
-		 		 		double previous_slope=0;
-		 		 		double slope= (point.y-prepoint.y)/(point.x-prepoint.x);
-		 		 		double slope_degree = Math.toDegrees(slope);
-		 		 		double turn_angle= (slope_degree-previous_slope);	
-		 		 		
-		 		 		if(turn_angle>0&&turn_angle<=180)
-		 		 		{
-		 		 			mobility.turn_right(turn_angle);
-		 		 			mobility.go_forward(distance);
-		 		 			previous_slope=slope_degree;
-		 		 		}
-		 		 		else
-		 		 		{
-		 		 			mobility.turn_left(turn_angle);
-		 		 			mobility.go_forward(distance);
-		 		 			previous_slope=slope_degree;
-		 		 		}
-		 		 		
-		 		 		
-		 		 		File file1 = new File("C:/Users/Saloni/workspace/cs537Project/reading1.txt");
-						
-		 		 		if (!file1.exists()) {
-							file1.createNewFile();
-						}
-						
-							FileWriter fw1 = new FileWriter(file1.getAbsoluteFile());
-							BufferedWriter bw1 = new BufferedWriter(fw1);
-							bw1.write("Distance = " +distance+ "Slope=" +slope+ "Turn_angle" +turn_angle);
-							bw1.close();
-		 		 		
-		 			}
-		 			prepoint=point;
-		 		}
-		 		
+			
 			
 		 		ObjectOutputStream outputToAnotherObject = new ObjectOutputStream(getRoverServerSocket().getSocket().getOutputStream());
 				
-				inputFromAnotherObject.close();
+		 	/*	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				String jsonString = gson.toJson(moduleOneClass);
+				
+				outputToAnotherObject.writeObject(jsonString);
+			*/	inputFromAnotherObject.close();
 				outputToAnotherObject.close();
 				
 				if (message.equalsIgnoreCase("exit"))
 					break;
+				
+				
+				else if(message.equalsIgnoreCase("MBLTY_MOVE_X_Y")) {
+					
+					MyClassHere controller = new MyClassHere();
+					controller.commandperforms("MBLTY_POW_ON");
+					Thread.sleep(5000);			
+					controller.commandperforms("MBLTY_TURNRIGHT");
+					Thread.sleep(5000);			
+					controller.commandperforms("MBLTY_TURNLEFT");
+					Thread.sleep(5000);			
+					controller.commandperforms("MBLTY_FWRD");
+					Thread.sleep(5000);
+					mobilityClass.getResult();
+						@SuppressWarnings("unused")
+					MyWriter JSONWriter = new MyWriter(mobilityClass, Constants.TWO);
+					System.out.println("");
+					System.out.println("<Server MOBILITY>");
+					
+					mobilityClass.getSlope();
+					mobilityClass.getPrevious_slope();
+					mobilityClass.getSlope_degree();
+					mobilityClass.getTurn_angle();
+					mobilityClass.getDistance();
+					mobilityClass.getTotal_distance();
+					mobilityClass.getRunning_time();
+					mobilityClass.getTotal_running_time();
+					System.out.println("<Server MOBILITY>");
+
+
+					System.out.println("");
+				}
+				
+				else if(message.equalsIgnoreCase("MODULE_MOBILITY_GET")) {
+					// The server reads another a JSON Object in memory
+					GlobalReader JSONReader = new GlobalReader(Constants.ONE);
+					JSONObject thatOtherObject = JSONReader.getJSONObject();
+					
+					// Integers are passed as longs
+					Double power = (Double) thatOtherObject.get("power");
+			
+					System.out.println("");
+					System.out.println("<Start> Module MOBILITY Server Receiving <Start>");
+					System.out.println("===========================================");
+					System.out.println("This is Class " + Constants.ONE + "'s object ");
+					System.out.println("Power = " + power);
+					
+					System.out.println("===========================================");
+					System.out.println("<End> Module MOBILITY Server Receiving <End>");
+					System.out.println("");
+				}
 			}
 			System.out.println("Server: Shutting down Socket server 1!!");
 			// close the ServerSocket object
@@ -129,7 +134,7 @@ public class MobilityServer extends RoverServerRunnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception error) {
-			System.out.println("Server: Error:" + error.getMessage());
+			System.out.println("MOBILITY Server: Error:" + error.getMessage());
 		}
 
 	}
