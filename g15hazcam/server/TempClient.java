@@ -1,4 +1,4 @@
-package hazcam;
+package server;
 
 /*	
  * Created by: 	Jonathan Young
@@ -36,7 +36,7 @@ public class TempClient extends RoverClientRunnable{
 	            //write to socket using ObjectOutputStream
 	            outputToAnotherObject = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
 	            
-	            System.out.println("Module 1 Client: Sending request to Socket Server");
+	            System.out.println("Control Client: Sending request to Socket Server");
 	            
 	            if(i == 6){
 	            	outputToAnotherObject.writeObject("exit");
@@ -63,12 +63,12 @@ public class TempClient extends RoverClientRunnable{
 	            //read the server response message
 	            inputFromAnotherObject = new ObjectInputStream(getRoverSocket().getSocket().getInputStream());
 	            String message = (String) inputFromAnotherObject.readObject();
-	            System.out.println("Module 1 Client: Message from Server - " + message.toUpperCase());
+	            System.out.println("Control Client: Message from Server - " + message.toUpperCase());
 	            
 	            // The server sends us a JSON String here
 	           String jsonString = (String) inputFromAnotherObject.readObject();
 	           if(i==5) 
-	           System.out.println("Module 1 Client: Message from Server - " + jsonString.toUpperCase());
+	           System.out.println("Control Client: Message from Server - " + jsonString.toUpperCase());
 	            
 	            // We can then parse the JSON String into a JSON Object
 	            JSONParser parser = new JSONParser();
@@ -80,17 +80,7 @@ public class TempClient extends RoverClientRunnable{
 				// Pass the long back into an integer
 				Integer myInteger = new Integer(myLong.intValue());
 				String myString = (String) jsonObject.get("myString");
-				/*
-				System.out.println("");
-				System.out.println("<Start> Client 1 now has: <Start>");
-				System.out.println("===========================================");
-				System.out.println("This is Class " + Constants.TWO + "'s object ");
-				System.out.println("myInteger = " + myInteger);
-				System.out.println("myString = " + myString);
-				System.out.println("===========================================");
-				System.out.println("<End> Client 1 now has: <End>");
-				System.out.println("");
-	         */   
+			
 	            //close resources
 	            inputFromAnotherObject.close();
 	            outputToAnotherObject.close();
@@ -103,7 +93,7 @@ public class TempClient extends RoverClientRunnable{
 			e.printStackTrace();
 		}
 		catch (Exception error) {
-			System.out.println("Client: Error:" + error.getMessage());
+			//System.out.println("Control Client: Error:" + error.getMessage());
 		}
 		
 	}

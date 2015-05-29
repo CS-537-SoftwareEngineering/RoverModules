@@ -1,4 +1,4 @@
-package hazcam;
+package other;
 
 /*	
  * Created by: 	Jonathan Young
@@ -17,9 +17,9 @@ import org.json.simple.parser.JSONParser;
 
 import generic.RoverClientRunnable;
 
-public class HazcamClient extends RoverClientRunnable{
+public class TempClient extends RoverClientRunnable{
 
-	public HazcamClient(int port, InetAddress host)
+	public TempClient(int port, InetAddress host)
 			throws UnknownHostException {
 		super(port, host);
 	}
@@ -32,20 +32,29 @@ public class HazcamClient extends RoverClientRunnable{
 		    Thread.sleep(5000);
 		    
 		  //Send 3 commands to the Server
-	        for(int i = 0; i < 4; i++){
+	        for(int i = 0; i < 7; i++){
 	            //write to socket using ObjectOutputStream
 	            outputToAnotherObject = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
 	            
-	            System.out.println("Module 1 Client: Sending request to Socket Server");
+	            System.out.println("Control Client: Sending request to Socket Server");
 	            
-	            if(i == 3){
+	            if(i == 6){
 	            	outputToAnotherObject.writeObject("exit");
 	            }
-	            else if(i == 2){
+	            else if(i == 5){
 	            	outputToAnotherObject.writeObject("MODULE_ONE_GET");
 	            }
+	            else if(i == 4) {
+	            	outputToAnotherObject.writeObject("HAZCAM_REAR_CAMERA2__IMAGE");
+	            }
+	            else if(i == 3) {
+	            	outputToAnotherObject.writeObject("HAZCAM_REAR_CAMERA1__IMAGE");
+	            }
+	            else if(i == 2) {
+	            	outputToAnotherObject.writeObject("HAZCAM_FRONT_CAMERA2__IMAGE");
+	            }
 	            else if(i == 1) {
-	            	outputToAnotherObject.writeObject("MODULE_TWO_DO_SOMETHING");
+	            	outputToAnotherObject.writeObject("HAZCAM_FRONT_CAMERA1__IMAGE");
 	            }
 	            else if(i == 0) {
 	            	outputToAnotherObject.writeObject("MODULE_PRINT");
@@ -54,11 +63,12 @@ public class HazcamClient extends RoverClientRunnable{
 	            //read the server response message
 	            inputFromAnotherObject = new ObjectInputStream(getRoverSocket().getSocket().getInputStream());
 	            String message = (String) inputFromAnotherObject.readObject();
-	            System.out.println("Module 1 Client: Message from Server - " + message.toUpperCase());
+	            System.out.println("Control Client: Message from Server - " + message.toUpperCase());
 	            
 	            // The server sends us a JSON String here
-	            String jsonString = (String) inputFromAnotherObject.readObject();
-	            System.out.println("Module 1 Client: Message from Server - " + jsonString.toUpperCase());
+	           String jsonString = (String) inputFromAnotherObject.readObject();
+	           if(i==5) 
+	           System.out.println("Control Client: Message from Server - " + jsonString.toUpperCase());
 	            
 	            // We can then parse the JSON String into a JSON Object
 	            JSONParser parser = new JSONParser();
@@ -70,17 +80,7 @@ public class HazcamClient extends RoverClientRunnable{
 				// Pass the long back into an integer
 				Integer myInteger = new Integer(myLong.intValue());
 				String myString = (String) jsonObject.get("myString");
-				
-				System.out.println("");
-				System.out.println("<Start> Client 1 now has: <Start>");
-				System.out.println("===========================================");
-				System.out.println("This is Class " + Constants.TWO + "'s object ");
-				System.out.println("myInteger = " + myInteger);
-				System.out.println("myString = " + myString);
-				System.out.println("===========================================");
-				System.out.println("<End> Client 1 now has: <End>");
-				System.out.println("");
-	            
+			
 	            //close resources
 	            inputFromAnotherObject.close();
 	            outputToAnotherObject.close();
@@ -93,7 +93,7 @@ public class HazcamClient extends RoverClientRunnable{
 			e.printStackTrace();
 		}
 		catch (Exception error) {
-			System.out.println("Client: Error:" + error.getMessage());
+			//System.out.println("Control Client: Error:" + error.getMessage());
 		}
 		
 	}

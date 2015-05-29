@@ -37,7 +37,7 @@ public class MyWriter {
 		// Write the file
 		try {
 			writer.write(jsonString);
-			System.out.println(myFilePath + " written to file.");
+			//System.out.println(myFilePath + " written to file.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
