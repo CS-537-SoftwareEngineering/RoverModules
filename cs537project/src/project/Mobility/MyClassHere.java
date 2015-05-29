@@ -237,12 +237,23 @@ public class MyClassHere implements Runnable {
 	public void run() {
 		
 		this.setPower(power);
+		try {
+			Thread.sleep(5000);
+	
 		mobility.turn_left(turn_angle);
+		Thread.sleep(5000);
 		mobility.turn_right(turn_angle);
+		Thread.sleep(5000);
 		mobility.go_forward(distance);
+		Thread.sleep(5000);
 		this.setTotal_distance(total_distance);
+		Thread.sleep(5000);
+		this.setPower(0);
 		// TODO Auto-generated method stub
-		
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

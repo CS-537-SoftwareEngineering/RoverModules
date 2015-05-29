@@ -76,15 +76,19 @@ public class MobilityServer extends RoverServerRunnable {
 				
 				else if(message.equalsIgnoreCase("MBLTY_MOVE_X_Y")) {
 					
-					MyClassHere controller = new MyClassHere();
-					controller.commandperforms("MBLTY_POW_ON");
+				
+					mobilityClass.commandperforms("MBLTY_POW_ON");
 					Thread.sleep(5000);			
-					controller.commandperforms("MBLTY_TURNRIGHT");
+					mobilityClass.commandperforms("MBLTY_TURNRIGHT");
 					Thread.sleep(5000);			
-					controller.commandperforms("MBLTY_TURNLEFT");
+					mobilityClass.commandperforms("MBLTY_TURNLEFT");
 					Thread.sleep(5000);			
-					controller.commandperforms("MBLTY_FWRD");
+					mobilityClass.commandperforms("MBLTY_FWRD");
 					Thread.sleep(5000);
+					mobilityClass.commandperforms("MBLTY_TOTALDISTANCE");
+					Thread.sleep(5000);
+					mobilityClass.commandperforms("MBLTY_POW_OFF");
+					
 					mobilityClass.getResult();
 						@SuppressWarnings("unused")
 					MyWriter JSONWriter = new MyWriter(mobilityClass, Constants.TWO);
