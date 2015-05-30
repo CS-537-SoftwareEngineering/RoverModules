@@ -4,15 +4,15 @@ import generic.RoverThreadHandler;
 
 import java.io.IOException;
 
-import rad.RadClient;
-import rad.RadServer;
+import server.RadClient;
+import server.RadServer;
 
 public class RadMain {
 
 	public static void main(String[] args) {
 
 		// Each module has its own port
-		int port_one = 9841;
+		int port_one = 9003;
 
 		try {
 

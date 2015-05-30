@@ -10,11 +10,10 @@ Notes:
 
  + RadMain.java contains the main class, this is placed under the ‘main’ package of the Generic Framework. Same place where MasterMain.java is located.
 
- + The ‘rad’ folder should go in the /src directory
 
 Updates:
 
- + RadServer.java - the JSON path (String path) at the top should be changed
+ + RadServer.java - the JSON path (String path) at the top is now "3.json"
 
 JSON:
 

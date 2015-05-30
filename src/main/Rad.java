@@ -1,4 +1,4 @@
-package rad;
+package main;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class Rad {
     
     private String state = "RAD_OFF";
     
-    Rad() {
+    public Rad() {
     }
     
     // Change state
@@ -52,11 +52,11 @@ public class Rad {
     
     // Rover interaction
     
-    boolean isOn() {
+    public boolean isOn() {
         return !state.equals("RAD_OFF");
     }
     
-    boolean isSleeping() {
+    public boolean isSleeping() {
         return state.equals("RAD_SLEEP");
     }
     
@@ -64,7 +64,7 @@ public class Rad {
         return state.equals("RAD_SCIENCE");
     }
     
-    double getPowerConsumption() {
+    public double getPowerConsumption() {
         if (state.equals("RAD_OFF")) {
             return POWER_LEVEL_OFF;
         }
@@ -75,11 +75,11 @@ public class Rad {
         }
     }
     
-    void addMeasurement(Double radiationLevel) {
+    public void addMeasurement(Double radiationLevel) {
         data.put(Calendar.getInstance().getTimeInMillis(), radiationLevel);
     }
     
-    void clearData() {
+    public void clearData() {
         data.clear();
     }
     
@@ -101,7 +101,7 @@ public class Rad {
         return state;
     }
     
-    void setState(String state) {
+    public void setState(String state) {
         this.state = state;
         
         setPowerLevel(getPowerConsumption());
