@@ -30,8 +30,8 @@ public class ModuleBase {
 	 * default constructor keeps the heater state and cooler state to OFF 
 	 */
 	public ModuleBase(){
-		this.heaterState = heaterState.OFF;
-		this.coolerState = coolerState.OFF;
+		this.heaterState = State.OFF;
+		this.coolerState = State.OFF;
 	}
 
 	public double getCurrTemp() {

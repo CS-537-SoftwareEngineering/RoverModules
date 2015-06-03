@@ -23,27 +23,19 @@ public class ThermalCommandClient extends RoverClientRunnable{
 			ObjectOutputStream oos = null;
 		    ObjectInputStream ois = null;
 		    Thread.sleep(2000);
-	        //for(int i=0; i<5;i++){
-            //establish socket connection to server
-            //socket = new Socket(host.getHostName(), 9876);
-            //write to socket using ObjectOutputStream
+
             oos = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
-            //System.out.println("Client: Sending request to Socket Server");
-            //if(i==4)oos.writeObject("exit");
-            //else 
-            //CommandData commandData = new CommandData("", "");
-            //String wo = commandData.jsonify();
+
         	oos.writeObject(data);
         	System.out.println("COMMAND TO MODULES: " +data);
             //read the server response message
             ois = new ObjectInputStream(getRoverSocket().getSocket().getInputStream());
             String message = (String) ois.readObject();
-            //System.out.println("Client: Message from Server - " + message.toUpperCase());
-            //close resources
+
             ois.close();
             oos.close();
             Thread.sleep(1000);
-	        //}
+
 	        closeAll();
 		}	        
         catch (UnknownHostException e) {

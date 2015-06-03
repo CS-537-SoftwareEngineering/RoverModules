@@ -66,22 +66,18 @@ public class ThermalServerChild extends RoverClientRunnable {
 	}
 
 	public void checkCommand() {
-		// String jsonString =
-		// "{\"data\":{\"name\":\"Chemcam\",\"Command\":\"CURRENT_TEMP\"}}";
-		// String jsonString =
-		// "{'data':{'name':'Chemcam','Command':'CURRENT_TEMP'}}";
+
 		org.json.JSONObject jObject;
 
 		// converting string to JSON
 		try {
 			jObject = new org.json.JSONObject(commandStr);
-			// org.json.JSONObject data = jObject.getJSONObject("data"); // get
-			// data object
+
 			Object json = new org.json.JSONTokener(commandStr).nextValue();
 			if (json instanceof JSONObject) {
-				// org.json.JSONObject data = jObject.getJSONObject("data");
+
 				Iterator<String> keys = jObject.keys();
-				// System.out.println("All keys from JSON String:");
+
 				while (keys.hasNext()) {
 					String key = keys.next().toUpperCase();
 					switch (ThermalKeys.valueOf(key)) {
@@ -101,16 +97,8 @@ public class ThermalServerChild extends RoverClientRunnable {
 					default:
 						System.out.println("KEY: " + key + "NOT CAPTURED");
 					}
-					// System.out.println(key +" " +
-					// jObject.getString(key).toString());
 				}
 			}
-			// moduleName = data.getString("name"); // get the name from data.
-			// moduleCommand = data.getString("command");
-			// sensorTemp = data.getDouble("");
-			// chANGE
-			// System.out.println("Name: "+moduleName);
-			// System.out.println("Command: " + moduleCommand);
 
 		} catch (org.json.JSONException e) {
 			e.printStackTrace();
@@ -219,8 +207,6 @@ public class ThermalServerChild extends RoverClientRunnable {
 			
 			ois.close();
 
-			// getRoverServerSocket().closeSocket();
-			// terminate the server if client sends exit request
 			socket.close();
 
 		} catch (IOException e) {
