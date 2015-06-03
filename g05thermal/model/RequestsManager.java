@@ -3,16 +3,14 @@ package model;
 import generic.RoverThreadHandler;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 import constant.Modules;
 import main.MasterMain;
 
 
 public class RequestsManager {
-	int port = MasterMain.getPort();
-	static String jsonFile;
-	static ArrayList<Modules> moduleNames;
+	private int port = MasterMain.getPort();
+	private static String jsonFile;
 	public static RequestsManager requestsManager;
 	
 	private RequestsManager(){
@@ -33,9 +31,8 @@ public class RequestsManager {
 	}
 	
 	private void initRequestsManager() throws UnknownHostException{
-		setModuleNames();
 		int toggle = -2; 
-		for (Modules mod : moduleNames) {
+		for (Modules mod : Modules.values()) {
 			if(toggle < 0){
 				//CURRENT_TEMPERATURES
 				DeviceSimulator device = new DeviceSimulator(port, null, mod, toggle++);
@@ -52,14 +49,13 @@ public class RequestsManager {
 		}
 
 	}
-	
-	public static void setModuleNames(){
-		moduleNames = new ArrayList<Modules>();
-		
-		for (Modules mod : Modules.values()) {	
-			moduleNames.add(mod);
-		}
-	   
+
+	public static String getJsonFile() {
+		return jsonFile;
+	}
+
+	public static void setJsonFile(String jsonFile) {
+		RequestsManager.jsonFile = jsonFile;
 	}
 
 }
