@@ -4,10 +4,10 @@ import generic.RoverThreadHandler;
 
 import java.io.IOException;
 
+import collaborators.RequestsManager;
+import collaborators.SensorManager;
 import json.Constants;
-import model.RequestsManager;
 import server.ThermalServer;
-import usecase.SensorManager;
 /**
  * <b>MasterMain is used to run the project.</b> <br>
  * This Class will Create the instance of ThermalServer and starts it 

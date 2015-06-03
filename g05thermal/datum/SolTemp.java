@@ -1,4 +1,4 @@
-package model;
+package datum;
 /**
  * This is a model class represents a sol (1 sol represents one day which is equivalent 
  * to one 24 hours and 40 minutes of the Earth time) temperature of Mars.

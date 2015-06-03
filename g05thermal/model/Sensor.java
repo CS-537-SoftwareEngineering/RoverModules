@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import util.TemperatureResponse;
 import constant.Modules;
 import constant.State;
 

@@ -9,11 +9,10 @@ import java.util.Iterator;
 
 import model.CommandData;
 import model.ModuleBase;
-import model.TemperatureResponse;
 
 import org.json.JSONObject;
 
-import usecase.ThermalDataSector;
+import util.TemperatureResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,6 +21,7 @@ import constant.Modules;
 import constant.State;
 import constant.ThermalCommands;
 import constant.ThermalKeys;
+import datum.ThermalDataSector;
 import generic.RoverClientRunnable;
 import generic.RoverServerRunnable;
 import generic.RoverThreadHandler;

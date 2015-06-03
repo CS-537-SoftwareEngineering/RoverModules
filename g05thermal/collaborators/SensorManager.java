@@ -1,4 +1,4 @@
-package usecase;
+package collaborators;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

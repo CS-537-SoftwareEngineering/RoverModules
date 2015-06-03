@@ -1,4 +1,4 @@
-package usecase;
+package datum;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,13 +15,13 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import model.ModuleBase;
-import model.TemperatureResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import util.TemperatureResponse;
 import constant.Modules;
 import constant.State;
 

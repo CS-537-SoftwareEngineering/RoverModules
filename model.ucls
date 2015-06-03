@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="model.RequestsManager" project="RoverModules" 
-    file="/RoverModules/g05thermal/model/RequestsManager.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="collaborators.RequestsManager" project="RoverModules" 
+    file="/RoverModules/g05thermal/collaborators/RequestsManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="189" y="155"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="model.TemperatureResponse" project="RoverModules" 
-    file="/RoverModules/g05thermal/model/TemperatureResponse.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="util.TemperatureResponse" project="RoverModules" 
+    file="/RoverModules/g05thermal/util/TemperatureResponse.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1196" y="409"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -55,8 +55,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="model.SolTemp" project="RoverModules" 
-    file="/RoverModules/g05thermal/model/SolTemp.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="datum.SolTemp" project="RoverModules" 
+    file="/RoverModules/g05thermal/datum/SolTemp.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1086" y="130"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

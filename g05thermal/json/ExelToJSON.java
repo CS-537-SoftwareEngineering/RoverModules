@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.util.Iterator;
 
-import model.SolTemp;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -14,6 +12,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import datum.SolTemp;
 
 /**
  * Converts data in excel sheet to JSON file and objects. <br>

@@ -1,4 +1,4 @@
-package model;
+package collaborators;
 
 import generic.RoverThreadHandler;
 
@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 
 import constant.Modules;
 import main.MasterMain;
+import model.DeviceSimulator;
 
 
 public class RequestsManager {
