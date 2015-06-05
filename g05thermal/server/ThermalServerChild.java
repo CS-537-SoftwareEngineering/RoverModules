@@ -65,6 +65,10 @@ public class ThermalServerChild extends RoverClientRunnable {
 	  return ThermalDataSector.getTempDataSector().getModuleMap().get(Modules.valueOf("NAVCAM")).getHeaterState().toString();
 	}
 
+	/**
+	 * Checks the command that has been issued form other modules for further process.
+	 * commands are expected to be in JSON format with 3 keys: NAME, COMMAND, TEMPERATURE.
+	 */
 	public void checkCommand() {
 
 		org.json.JSONObject jObject;
