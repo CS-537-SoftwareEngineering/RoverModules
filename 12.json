@@ -1,6 +1,7 @@
 {
   "drill_status": 0,
   "drt_status": 0,
+  "position_set": false,
   "sample_exist": true,
   "cleaning_completed": false,
   "spare_bits": 2

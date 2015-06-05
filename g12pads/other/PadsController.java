@@ -40,6 +40,7 @@ public class PadsController implements Runnable{
 	public void setPosition() {
 		// TODO Auto-generated method stub
 		System.out.println("");
+		pads.setPosition_set(true); 
 		System.out.println("PADS_SET_POSITION: Setting up drill position..");  
 	}
 	public void startDrill() {
@@ -62,6 +63,7 @@ public class PadsController implements Runnable{
 		System.out.println("PADS_DRILL_STOP: Drill has been stoped.."); 
 		pads.setDrill_status(0); 
 		pads.setSample_exist(true); 
+		pads.setPosition_set(false); 
 	}
 	public void disEngageBits() {
 		// TODO Auto-generated method stub

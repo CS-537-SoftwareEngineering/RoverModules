@@ -7,7 +7,7 @@ public class Pads {
 
 	private int drill_status;
 	private int drt_status;
-	
+	private boolean position_set;
 	private boolean sample_exist;	//true = do get the sample, false = do not get the sample
 	private boolean cleaning_completed;		//true = has completed cleaning, false= hasn't completed cleaning
 	private int spare_bits = 2;		// Mars rover has maximum 2 number of spare bits in bit box
@@ -16,9 +16,18 @@ public class Pads {
 		// TODO Auto-generated constructor stub
 		this.drill_status = 0;
 		this.drt_status = 0;
+		this.position_set = false;
 		this.sample_exist = false;
 		this.cleaning_completed = false;
 		
+	}
+
+	public boolean isPosition_set() {
+		return position_set;
+	}
+
+	public void setPosition_set(boolean position_set) {
+		this.position_set = position_set;
 	}
 
 	public int getDrill_status() {
