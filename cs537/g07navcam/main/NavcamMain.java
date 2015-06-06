@@ -8,7 +8,7 @@ import module1.ModuleOneClient;
 import module1.ModuleOneServer;
 import module2.ModuleTwoClient;
 import module2.ModuleTwoServer;
-import module7.ModuleSevenClient;
+import module7.ModuleSevenClient1;
 import module7.ModuleSevenServer;
 public class NavcamMain {
 public static void main(String[] args) {
@@ -52,12 +52,14 @@ public static void main(String[] args) {
 			Thread client_2 = RoverThreadHandler.getRoverThreadHandler().getNewThread(clientTwo);
 			*/
 			// Client 7 thread
-			ModuleSevenClient clientSeven = new ModuleSevenClient(port_seven, null); // notice port_one
+			ModuleSevenClient1 clientSeven = new ModuleSevenClient1(port_seven, null); // notice port_one
 			Thread client_7 = RoverThreadHandler.getRoverThreadHandler().getNewThread(clientSeven);
+			//Thread client_8 = RoverThreadHandler.getRoverThreadHandler().getNewThread(clientSeven);
 			// start the thread which communicates through sockets
 			//client_1.start();
 			//client_2.start();
 			client_7.start();
+			//client_8.start();
 		} 
 		catch (IOException e) {
 			// TODO Auto-generated catch block

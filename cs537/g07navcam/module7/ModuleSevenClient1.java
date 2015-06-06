@@ -20,8 +20,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import generic.RoverClientRunnable;
-public class ModuleSevenClient extends RoverClientRunnable{
-	public ModuleSevenClient(int port, InetAddress host)
+public class ModuleSevenClient1 extends RoverClientRunnable{
+	public ModuleSevenClient1(int port, InetAddress host)
 			throws UnknownHostException {
 		super(port, host);
 	}
@@ -32,17 +32,20 @@ public class ModuleSevenClient extends RoverClientRunnable{
 		    Thread.sleep(1000);		    
 		    outputToAnotherObject = new ObjectOutputStream(getRoverSocket().getNewSocket().getOutputStream());
 		    System.out.println("Sending request to Server");
-		    outputToAnotherObject.writeObject("Turn_On");
-		    outputToAnotherObject.writeObject("Power_available");
-		    outputToAnotherObject.writeObject("capture");
-		    outputToAnotherObject.writeObject("Turn_Off");
-		   
+		    outputToAnotherObject.writeObject("NCAM_TURN_ON");
+		   // outputToAnotherObject.writeObject("Power_available");
+		    outputToAnotherObject.writeObject("NCAM_CAPTURE");
+		    Thread.sleep(5000);
+		    outputToAnotherObject.writeObject("NCAM_CLICK");
+		    Thread.sleep(5000);
+		    outputToAnotherObject.writeObject("NCAM_TURN_OFF");
+		    Thread.sleep(5000);		    
 		}catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (Exception error) {
-			System.out.println("Client: Error:" + error.getMessage());
+			//System.out.println("Client: Error:" + error.getMessage());
 		}
 	}
 }
