@@ -106,11 +106,10 @@ public class PadsServer extends RoverServerRunnable{
 					Thread.sleep(5000);
 					pads = controller.action("PADS_DRT_STOP");
 					
-//					MyWriter JSONWriter = new MyWriter(pads, Constants.TWELVE); 
 					String jsonString = gson.toJson(pads); 
 					outputToAnotherObject.writeObject(jsonString);
 					Thread.sleep(5000);
-					
+					        
 				}else if(message.equalsIgnoreCase("BITS_STUCK")) {
 					PadsController controller = new PadsController();
 					Thread.sleep(3000);

@@ -3,13 +3,21 @@ package other;
 import static org.junit.Assert.*;
 import main.Pads;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PadsTestCase {
 
+	PadsController controller;
+	Pads pads;
 	
-	PadsController controller = new PadsController();
-	Pads pads = new Pads();
+	@Before
+    public void setUp() {
+		controller = new PadsController();
+		pads = new Pads();
+        System.out.println("@Before - setUp");
+    }
 	
 	@Test
 	public void Pads(){ 
@@ -44,29 +52,11 @@ public class PadsTestCase {
 	}
 
 	@Test
-	public void testLoadBits() {
-		int spareBits = 0;
-		for(int i=2; i>=-1; i--){
-			pads = controller.action("PADS_LOAD_BITS"); 
-		}
-		assertEquals(pads.getSpare_bits(), spareBits);
-	}
-
-	@Test
-	public void testReplaceBits() {
-		int spareBits = 2;
-		pads = controller.action("PADS_REPLACE_BITS"); 
-		System.out.println("pads.getSpare_bits()"+pads.getSpare_bits()); 
-		assertEquals(pads.getSpare_bits(), spareBits);
-	}
-
-	@Test
 	public void testStartDrt() {
 		int drt_status = 1;
 		pads = controller.action("PADS_DRT_START"); 
 		assertEquals(pads.getDrt_status(), drt_status);
 	}
-
 
 	@Test
 	public void testStopDrt() {
@@ -75,4 +65,10 @@ public class PadsTestCase {
 		assertEquals(pads.getDrt_status(), drt_status);
 	}
 
+	@After
+	public void tearDown() {
+	    controller = null;
+	    pads = null;		
+	    System.out.println("@After - tearDown");
+	}
 }

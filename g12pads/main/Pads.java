@@ -2,16 +2,26 @@ package main;
 
 public class Pads {
 
-//	status = 0 - Drill/DRT is not functioning
-//	status = 1 - Drill/DRT is functioning
-
+	//	status = 0 - Drill/DRT is not functioning
+	//	status = 1 - Drill/DRT is functioning
 	private int drill_status;
 	private int drt_status;
-	private boolean position_set;
-	private boolean sample_exist;	//true = do get the sample, false = do not get the sample
-	private boolean cleaning_completed;		//true = has completed cleaning, false= hasn't completed cleaning
-	private int spare_bits = 2;		// Mars rover has maximum 2 number of spare bits in bit box
 	
+	//true = position is already set
+	//false = position is not set
+	private boolean position_set;	
+	
+	//true = do get the sample
+	//false = do not get the sample
+	private boolean sample_exist;
+	
+	//true = has completed cleaning 
+	//false= hasn't completed cleaning
+	private boolean cleaning_completed;	
+	
+	// Mars rover has maximum 2 number of spare bits in bit box
+	private int spare_bits = 2;		
+
 	public Pads() {
 		// TODO Auto-generated constructor stub
 		this.drill_status = 0;

@@ -2,39 +2,11 @@ package other;
 
 import main.Pads;
 
-public class PadsController implements Runnable{
-
+public class PadsController{
 	
-	Thread mythread ;
 	Pads pads = new Pads();
 	public PadsController() {
 		super();
-		  
-//		mythread = new Thread(this, "my runnable thread");
-//	    mythread.start();
-		// TODO Auto-generated constructor stub
-		
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		try {
-			this.setPosition();
-			Thread.sleep(5000);
-			this.startDrill();
-			Thread.sleep(5000);
-			this.stopDrill();
-			Thread.sleep(5000);
-			this.startDrt();
-			Thread.sleep(5000);
-			this.stopDrt();
-			Thread.sleep(5000);
-			
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void setPosition() {
