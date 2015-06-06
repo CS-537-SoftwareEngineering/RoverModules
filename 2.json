@@ -1,0 +1,12 @@
+{
+  "sendData": true,
+  "powerAvailable": false,
+  "signalPower": 7.0,
+  "signalMaxPower": 30.0,
+  "frequency": "2MHz",
+  "bandwidth": "10 MHz",
+  "modulation": 4,
+  "noise": 3,
+  "signalReceived": true,
+  "order": ""
+}
