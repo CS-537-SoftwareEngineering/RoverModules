@@ -55,7 +55,7 @@ public class TestClientForPads extends RoverClientRunnable{
 	            
 	            else if(i == 3){
 	            	outputToAnotherObject.writeObject("DRT_START");
-	            	Thread.sleep(25000);
+	            	Thread.sleep(5000);
 	            	inputFromAnotherObject = new ObjectInputStream(getRoverSocket().getSocket().getInputStream());
 		            String jsonString = (String) inputFromAnotherObject.readObject();
 		            JSONParser parser = new JSONParser();
@@ -74,7 +74,7 @@ public class TestClientForPads extends RoverClientRunnable{
 	            }
 	            else if(i == 2) {
 	            	outputToAnotherObject.writeObject("DRILL_START");
-	            	Thread.sleep(25000);
+	            	Thread.sleep(5000);
 					inputFromAnotherObject = new ObjectInputStream(getRoverSocket().getSocket().getInputStream());
 		            String jsonString = (String) inputFromAnotherObject.readObject();
 		            JSONParser parser = new JSONParser();

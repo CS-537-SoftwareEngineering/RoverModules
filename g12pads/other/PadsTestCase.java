@@ -16,7 +16,6 @@ public class PadsTestCase {
     public void setUp() {
 		controller = new PadsController();
 		pads = new Pads();
-        System.out.println("@Before - setUp");
     }
 	
 	@Test
@@ -69,6 +68,5 @@ public class PadsTestCase {
 	public void tearDown() {
 	    controller = null;
 	    pads = null;		
-	    System.out.println("@After - tearDown");
 	}
 }
